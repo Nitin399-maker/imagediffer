@@ -48,14 +48,15 @@
 
     <div class="container mt-4">
         <h1 class="display-1 my-4 text-center">ImageDiff</h1>
-        <h2 class="display-6 text-center">Generate <em>pixel-perfect</em> image clones using Gemini AI</h2>
+        <h2 class="display-6 text-center">Multi-Model AI Image Reproduction Evaluation</h2>
         <div class="mx-auto my-3 narrative">
-            <p class="mb-2">Test how accurately AI can recreate images with detailed pixel-wise comparison analysis.</p>
+            <p class="mb-2">Evaluate how well different AI models (Nano Banana, GPT Image, Claude, etc.) reproduce images using multiple perceptual quality metrics.</p>
             <ul class="mb-0">
-                <li>Upload any image and generate an AI clone using Gemini's nano banana model</li>
-                <li>Compare original vs generated with advanced metrics (MAE, MSE, PSNR)</li>
-                <li>Visualize differences with color-coded error maps and distribution bins</li>
-                <li>Export complete analysis reports with embedded images</li>
+                <li>Test multiple AI models simultaneously (Gemini, GPT-4, Claude)</li>
+                <li>Compare with advanced metrics: MS-SSIM, SSIMULACRA2, Butteraugli, FLIP, LPIPS, PSNR</li>
+                <li>Identify which metrics best align with human perception</li>
+                <li>Determine which model performs best for each metric</li>
+                <li>Visualize differences with color-coded error maps and distribution analysis</li>
             </ul>
         </div>
 
@@ -103,58 +104,22 @@
             </div>
         </div>
 
-        <!-- Advanced Settings Accordion -->
-        <div class="accordion my-4" id="advanced-accordion">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="advanced-heading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-settings" aria-expanded="false" aria-controls="advanced-settings">
-                        <i class="bi bi-sliders2 me-2"></i> Advanced Settings
-                    </button>
-                </h2>
-                <div id="advanced-settings" class="accordion-collapse collapse" aria-labelledby="advanced-heading" data-bs-parent="#advanced-accordion">
-                    <div class="accordion-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="model-select" class="form-label">AI Model</label>
-                                <select class="form-select" id="model-select">
-                                    <option value="">Loading models...</option>
-                                </select>
-                                <div class="form-text">Recommended: google/gemini-2.5-flash-image-preview</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="resize-mode" class="form-label">Resize Mode</label>
-                                <select class="form-select" id="resize-mode">
-                                    <option value="stretch">Stretch (Exact)</option>
-                                    <option value="contain">Contain (Pad)</option>
-                                    <option value="crop">Crop Center</option>
-                                </select>
-                                <div class="form-text">How to handle different image sizes</div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="threshold-slider" class="form-label">Difference Threshold: <span id="threshold-value" class="badge bg-primary">10</span></label>
-                                <input type="range" class="form-range" id="threshold-slider" min="0" max="50" value="10">
-                                <div class="form-text">Sensitivity for pixel difference detection (0-50)</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Comparison Options</label>
-                                <div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="show-alpha" checked>
-                                        <label class="form-check-label" for="show-alpha">Show Alpha Channel</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="ignore-alpha">
-                                        <label class="form-check-label" for="ignore-alpha">Ignore Alpha in Comparison</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="ignore-white">
-                                        <label class="form-check-label" for="ignore-white">Ignore White Background</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Model Selection -->
+        <div class="card my-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-robot"></i> Select AI Models for Comparison
+            </div>
+            <div class="card-body">
+                <div class="form-text mb-3">Select one or more models to generate and compare image reproductions</div>
+                <div id="model-checkboxes" class="row g-3">
+                    <div class="col-12 text-muted">Loading models...</div>
+                </div>
+                <hr class="my-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="threshold-slider" class="form-label">Difference Threshold: <span id="threshold-value" class="badge bg-primary">10</span></label>
+                        <input type="range" class="form-range" id="threshold-slider" min="0" max="50" value="10">
+                        <div class="form-text">Sensitivity for pixel difference detection (0-50)</div>
                     </div>
                 </div>
             </div>
@@ -170,39 +135,14 @@
             </button>
         </div>
 
-        <!-- Image Display Section -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header bg-secondary text-white">
-                        <i class="bi bi-image"></i> Original Image
-                    </div>
-                    <div class="card-body text-center">
-                        <canvas id="original-canvas" class="diff-canvas"></canvas>
-                        <div id="original-info" class="mt-2 small text-muted"></div>
-                    </div>
-                </div>
+        <!-- All Models Image Display Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-images"></i> All Models - Image Comparisons
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        <i class="bi bi-stars"></i> Generated Clone
-                    </div>
-                    <div class="card-body text-center">
-                        <canvas id="generated-canvas" class="diff-canvas"></canvas>
-                        <div id="generated-info" class="mt-2 small text-muted"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header bg-danger text-white">
-                        <i class="bi bi-exclamation-triangle"></i> Difference Map
-                    </div>
-                    <div class="card-body text-center">
-                        <canvas id="diff-canvas" class="diff-canvas"></canvas>
-                        <div id="diff-info" class="mt-2 small text-muted"></div>
-                    </div>
+            <div class="card-body">
+                <div id="all-models-images">
+                    <p class="text-muted text-center">Generate images with models to see comparisons...</p>
                 </div>
             </div>
         </div>
@@ -213,9 +153,15 @@
                 <div class="card">
                     <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                         <span><i class="bi bi-graph-up"></i> Pixel Difference Analysis</span>
-                        <button class="btn btn-sm btn-success" id="export-btn" disabled>
-                            <i class="bi bi-download"></i> Export Report
-                        </button>
+                        <div class="d-flex gap-2 align-items-center">
+                            <label class="mb-0 me-2" style="font-size: 0.9rem;">Select Model:</label>
+                            <select class="form-select form-select-sm" id="metrics-model-select" style="width: auto; min-width: 200px;">
+                                <option value="">No models yet</option>
+                            </select>
+                            <button class="btn btn-sm btn-success" id="export-btn" disabled>
+                                <i class="bi bi-download"></i> Export Report
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row g-2 mb-3" id="metrics-panel">
@@ -262,6 +208,48 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <h5 class="mt-3 mb-2">Advanced Perceptual Metrics</h5>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3">
+                                <div class="alert alert-info metric-badge mb-0">
+                                    <strong>SSIM:</strong> <span id="metric-ssim">-</span>
+                                    <div class="form-text" style="font-size: 0.7rem;">Structural Similarity (0-1, higher better)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="alert alert-info metric-badge mb-0">
+                                    <strong>MS-SSIM:</strong> <span id="metric-msssim">-</span>
+                                    <div class="form-text" style="font-size: 0.7rem;">Multi-Scale SSIM (0-1, higher better)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="alert alert-info metric-badge mb-0">
+                                    <strong>SSIMULACRA2:</strong> <span id="metric-ssimulacra2">-</span>
+                                    <div class="form-text" style="font-size: 0.7rem;">Perceptual quality (0-100, higher better)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="alert alert-warning metric-badge mb-0">
+                                    <strong>Butteraugli:</strong> <span id="metric-butteraugli">-</span>
+                                    <div class="form-text" style="font-size: 0.7rem;">Perceptual diff (0-10, lower better)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <div class="alert alert-warning metric-badge mb-0">
+                                    <strong>FLIP:</strong> <span id="metric-flip">-</span>
+                                    <div class="form-text" style="font-size: 0.7rem;">Feature-based metric (lower better)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="alert alert-success metric-badge mb-0">
+                                    <strong>LPIPS:</strong> <span id="metric-lpips">-</span>
+                                    <div class="form-text" style="font-size: 0.7rem;">Learned Perceptual (lower better)</div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered bin-table">
                                 <thead class="table-dark">
@@ -276,6 +264,55 @@
                                     <tr><td colspan="4" class="text-center text-muted">No comparison data yet</td></tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Multi-Model Comparison Section -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <i class="bi bi-trophy"></i> Multi-Model Performance Comparison
+                    </div>
+                    <div class="card-body">
+                        <div id="best-models" class="mb-3">
+                            <p class="text-muted">Generate images with multiple models to see comparison...</p>
+                        </div>
+                        
+                        <h5>Detailed Metrics Comparison</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>PSNR ↑</th>
+                                        <th>SSIM ↑</th>
+                                        <th>MS-SSIM ↑</th>
+                                        <th>SSIMULACRA2 ↑</th>
+                                        <th>Butteraugli ↓</th>
+                                        <th>FLIP ↓</th>
+                                        <th>LPIPS ↓</th>
+                                        <th>% Diff ↓</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="model-comparison-table">
+                                    <tr><td colspan="9" class="text-center text-muted">No comparison data yet</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3">
+                            <h6><i class="bi bi-info-circle"></i> Metric Interpretation Guide:</h6>
+                            <ul class="mb-0 small">
+                                <li><strong>↑ Higher is better:</strong> PSNR, SSIM, MS-SSIM, SSIMULACRA2</li>
+                                <li><strong>↓ Lower is better:</strong> Butteraugli, FLIP, LPIPS, % Difference</li>
+                                <li><strong>Best human perception alignment:</strong> SSIM, MS-SSIM, SSIMULACRA2, LPIPS</li>
+                                <li><strong>SSIMULACRA2:</strong> Considered state-of-the-art for perceptual quality assessment</li>
+                                <li><strong>LPIPS:</strong> Uses deep learning features, excellent for perceptual similarity</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

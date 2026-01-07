@@ -67,6 +67,16 @@ export const loadImageFromUrl = url => new Promise((resolve, reject) => {
     img.src = url;
 });
 
+export const METRIC_INFO = {
+    'PSNR': 'Peak Signal-to-Noise Ratio - Traditional quality metric, higher is better (>30 dB is good)',
+    'SSIM': 'Structural Similarity Index - Measures structural similarity (0-1, >0.95 is excellent)',
+    'MS-SSIM': 'Multi-Scale SSIM - Better than SSIM for varying resolutions (0-1, >0.95 is excellent)',
+    'SSIMULACRA2': 'State-of-the-art perceptual quality metric (0-100, >90 is excellent)',
+    'Butteraugli': 'Google\'s perceptual difference metric (0-10, <1.0 is excellent)',
+    'FLIP': 'Feature-based Luminance and color Image Perceptual metric (lower is better)',
+    'LPIPS': 'Learned Perceptual Image Patch Similarity - Uses deep learning (lower is better, <0.1 is excellent)'
+};
+
 export const openrouterHelp = `
 <div class="alert alert-info">
   <h6>Getting Started with OpenRouter</h6>
@@ -77,6 +87,46 @@ export const openrouterHelp = `
     <li>Create a new API key</li>
     <li>Copy and paste it here</li>
   </ol>
-  <p class="mb-0"><strong>Recommended Model:</strong> google/gemini-2.5-flash-image-preview (Nano Banana)</p>
+  <p class="mb-0"><strong>Recommended Models:</strong> Select multiple models to compare (Nano Banana, GPT Image, Claude)</p>
 </div>
 `;
+
+// Additional Utilities
+export const getModelDisplayName = (model) => model.replace(/^(google|openai|anthropic|meta|mistral|cohere)\//i, '');
+
+export const getLuminance = (r, g, b) => 0.299 * r + 0.587 * g + 0.114 * b;
+
+export const resizeImage = (img, targetWidth, targetHeight, mode) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
+    
+    if (mode === 'stretch') { 
+        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+    } else {
+        const scale = mode === 'contain' 
+            ? Math.min(targetWidth / img.width, targetHeight / img.height)
+            : Math.max(targetWidth / img.width, targetHeight / img.height);
+        const scaledWidth = img.width * scale;
+        const scaledHeight = img.height * scale;
+        const x = (targetWidth - scaledWidth) / 2;
+        const y = (targetHeight - scaledHeight) / 2;
+        
+        if (mode === 'contain') {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, targetWidth, targetHeight);
+        }
+        ctx.drawImage(img, x, y, scaledWidth, scaledHeight);
+    }
+    
+    return canvas;
+};
+
+export const updateCanvas = (canvasId, canvas, width, height) => {
+    const el = $(canvasId);
+    if (!el) return;
+    el.width = width;
+    el.height = height;
+    el.getContext('2d').drawImage(canvas, 0, 0);
+};

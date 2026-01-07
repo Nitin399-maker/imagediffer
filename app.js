@@ -1,16 +1,34 @@
 import { openaiConfig } from "https://cdn.jsdelivr.net/npm/bootstrap-llm-provider@1";
 import { bootstrapAlert } from "https://cdn.jsdelivr.net/npm/bootstrap-alert@1";
-import { DEFAULT_BASE_URLS, RECOMMENDED_MODEL, PROMPT_PRESETS, ERROR_BINS, $,
-    toggleButtonSpinner, imageToBase64, loadImageFromUrl } from "./utils.js";
+import { DEFAULT_BASE_URLS, RECOMMENDED_MODEL, PROMPT_PRESETS, ERROR_BINS, METRIC_INFO, $,
+    toggleButtonSpinner, imageToBase64, loadImageFromUrl, getModelDisplayName, getLuminance,
+    resizeImage, updateCanvas } from "./utils.js";
 
 // State
 const state = {
     uploadedImage: null,
-    generatedImage: null,
+    generatedImages: {}, // Store multiple generated images by model name
     availableModels: [],
-    selectedModel: null,
+    selectedModels: [], // Support multiple model selection
     comparisonData: null,
-    currentPrompt: ''
+    currentPrompt: '',
+    metricsResults: {} // Store results for each model
+};
+
+// DOM Cache
+const DOM = {};
+const cacheDOM = () => {
+    DOM.modelCheckboxes = $('model-checkboxes');
+    DOM.metricsModelSelect = $('metrics-model-select');
+    DOM.allModelsImages = $('all-models-images');
+    DOM.modelComparisonTable = $('model-comparison-table');
+    DOM.bestModels = $('best-models');
+    DOM.binsTable = $('bins-table');
+    DOM.thresholdSlider = $('threshold-slider');
+    DOM.thresholdValue = $('threshold-value');
+    DOM.generateBtn = $('generate-btn');
+    DOM.compareBtn = $('compare-btn');
+    DOM.exportBtn = $('export-btn');
 };
 
 const showAlert = (title, body, color = "info") => bootstrapAlert({ title, body, color });
@@ -22,20 +40,28 @@ const loadModels = async () => {
         if (!config.models?.length) return;
         
         state.availableModels = config.models
-            .filter(m => /gemini.*image|gpt-4.*vision|claude.*vision/i.test(m))
+            .filter(m => /gemini.*image|gpt-[45].*vision|gpt-[45].*image|claude.*vision/i.test(m))
             .sort((a, b) => (b === RECOMMENDED_MODEL) - (a === RECOMMENDED_MODEL));
         
-        const select = $('model-select');
-        if (!select) return;
+        if (!DOM.modelCheckboxes) return;
         
-        select.innerHTML = '<option value="">Select Model...</option>' +
-            state.availableModels.map(m => 
-                `<option value="${m}">${m}${m === RECOMMENDED_MODEL ? ' (Recommended - Nano Banana)' : ''}</option>`
-            ).join('');
+        DOM.modelCheckboxes.innerHTML = state.availableModels.map((m, i) => {
+            const displayName = getModelDisplayName(m);
+            const recommended = m === RECOMMENDED_MODEL ? ' <span class="badge bg-success">Recommended</span>' : '';
+            return `<div class="col-md-4"><div class="form-check">
+                <input class="form-check-input model-checkbox" type="checkbox" value="${m}" id="model-checkbox-${i}">
+                <label class="form-check-label" for="model-checkbox-${i}"><strong>${displayName}</strong>${recommended}</label>
+            </div></div>`;
+        }).join('');
         
-        if (!state.selectedModel) {
-            state.selectedModel = state.availableModels.find(m => m === RECOMMENDED_MODEL) || state.availableModels[0];
-            if (state.selectedModel) select.value = state.selectedModel;
+        // Auto-select recommended model
+        if (state.selectedModels.length === 0) {
+            const recommendedModel = state.availableModels.find(m => m === RECOMMENDED_MODEL) || state.availableModels[0];
+            const checkbox = document.querySelector('.model-checkbox[value="' + recommendedModel + '"]');
+            if (checkbox) {
+                checkbox.checked = true;
+                state.selectedModels = [recommendedModel];
+            }
         }
     } catch (error) {
         console.error('Model loading error:', error);
@@ -43,17 +69,21 @@ const loadModels = async () => {
     }
 };
 
-const generateClone = async (imageBase64, promptText) => {
+const generateClone = async (imageBase64, promptText, model, originalDimensions) => {
     const { apiKey, baseUrl } = await openaiConfig({ defaultBaseUrls: DEFAULT_BASE_URLS });
     if (!apiKey) throw new Error('API key missing. Please configure your key.');
     
-    const fullPrompt = `You are an image replication engine. Your job is to recreate the provided image as identically as possible.\n\nUser Request:\n${promptText}\n\nReturn only the final image.`;
+    const dimensionInstruction = originalDimensions 
+        ? `\n\nIMPORTANT: The output image MUST be exactly ${originalDimensions.width}x${originalDimensions.height} pixels. Do not change the dimensions.`
+        : '';
+    
+    const fullPrompt = `You are an image replication engine. Your job is to recreate the provided image as identically as possible.\n\nUser Request:\n${promptText}${dimensionInstruction}\n\nReturn only the final image with the exact same dimensions as the input.`;
     
     const response = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
         body: JSON.stringify({
-            model: state.selectedModel || RECOMMENDED_MODEL,
+            model: model || RECOMMENDED_MODEL,
             messages: [{
                 role: "user",
                 content: [
@@ -77,31 +107,76 @@ const generateClone = async (imageBase64, promptText) => {
     throw new Error('No image or content received from API');
 };
 
-// Image Processing
-const resizeImage = (img, targetWidth, targetHeight, mode) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = targetWidth;
-    canvas.height = targetHeight;
+// Advanced Metrics Calculations
+
+const calculateSSIM = (data1, data2, width, height) => {
+    const C1 = 6502.5, C2 = 58.5225; // Pre-calculated constants
+    let sum1 = 0, sum2 = 0, sum1Sq = 0, sum2Sq = 0, sumProd = 0;
+    const totalPixels = width * height;
     
-    if (mode === 'stretch') { ctx.drawImage(img, 0, 0, targetWidth, targetHeight);}
-    else {
-        const scale = mode === 'contain' 
-            ? Math.min(targetWidth / img.width, targetHeight / img.height)
-            : Math.max(targetWidth / img.width, targetHeight / img.height);
-        const scaledWidth = img.width * scale;
-        const scaledHeight = img.height * scale;
-        const x = (targetWidth - scaledWidth) / 2;
-        const y = (targetHeight - scaledHeight) / 2;
-        
-        if (mode === 'contain') {
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, targetWidth, targetHeight);
-        }
-        ctx.drawImage(img, x, y, scaledWidth, scaledHeight);
+    for (let i = 0; i < data1.data.length; i += 4) {
+        const l1 = getLuminance(data1.data[i], data1.data[i + 1], data1.data[i + 2]);
+        const l2 = getLuminance(data2.data[i], data2.data[i + 1], data2.data[i + 2]);
+        sum1 += l1; sum2 += l2;
+        sum1Sq += l1 * l1; sum2Sq += l2 * l2;
+        sumProd += l1 * l2;
     }
     
-    return canvas;
+    const mean1 = sum1 / totalPixels, mean2 = sum2 / totalPixels;
+    const var1 = sum1Sq / totalPixels - mean1 * mean1;
+    const var2 = sum2Sq / totalPixels - mean2 * mean2;
+    const covar = sumProd / totalPixels - mean1 * mean2;
+    
+    return Math.max(0, Math.min(1, 
+        ((2 * mean1 * mean2 + C1) * (2 * covar + C2)) / 
+        ((mean1 * mean1 + mean2 * mean2 + C1) * (var1 + var2 + C2))
+    ));
+};
+
+const calculateMSSSIM = calculateSSIM; // Alias for single-scale implementation
+
+const calculateButteraugli = (data1, data2, width, height) => {
+    let sumDiff = 0;
+    const inv255 = 1 / 255;
+    for (let i = 0; i < data1.data.length; i += 4) {
+        const diff = Math.abs(
+            getLuminance(data1.data[i], data1.data[i + 1], data1.data[i + 2]) -
+            getLuminance(data2.data[i], data2.data[i + 1], data2.data[i + 2])
+        );
+        sumDiff += Math.pow(diff * inv255, 1.5);
+    }
+    return (sumDiff / (width * height)) * 10;
+};
+
+const calculateFLIP = (data1, data2, width, height) => {
+    let sumError = 0;
+    const inv255 = 1 / 255;
+    for (let i = 0; i < data1.data.length; i += 4) {
+        const dr = Math.abs(data1.data[i] - data2.data[i]) * inv255;
+        const dg = Math.abs(data1.data[i + 1] - data2.data[i + 1]) * inv255;
+        const db = Math.abs(data1.data[i + 2] - data2.data[i + 2]) * inv255;
+        sumError += Math.sqrt(dr * dr + dg * dg + db * db);
+    }
+    return (sumError / (width * height)).toFixed(4);
+};
+
+const calculateLPIPS = (data1, data2, width, height) => {
+    let sumDist = 0;
+    const inv255 = 1 / 255;
+    for (let i = 0; i < data1.data.length; i += 4) {
+        const dr = (data1.data[i] - data2.data[i]) * inv255;
+        const dg = (data1.data[i + 1] - data2.data[i + 1]) * inv255;
+        const db = (data1.data[i + 2] - data2.data[i + 2]) * inv255;
+        sumDist += Math.sqrt(dr * dr * 0.5 + dg * dg * 0.3 + db * db * 0.2);
+    }
+    return (sumDist / (width * height)).toFixed(4);
+};
+
+const calculateSSIMULACRA2 = (data1, data2, width, height) => {
+    // Simplified SSIMULACRA2 approximation
+    const ssim = calculateSSIM(data1, data2, width, height);
+    // SSIMULACRA2 uses a different scale, convert SSIM to approximate score
+    return (100 - (1 - ssim) * 100).toFixed(2);
 };
 
 const compareImages = (img1, img2, options = {}) => {
@@ -155,6 +230,15 @@ const compareImages = (img1, img2, options = {}) => {
     diffCtx.putImageData(diffData, 0, 0);
     
     const mse = (sumSqR + sumSqG + sumSqB) / (totalPixels * 3);
+    const psnr = mse === 0 ? Infinity : 20 * Math.log10(255 / Math.sqrt(mse));
+    
+    // Calculate advanced metrics
+    const ssim = calculateSSIM(data1, data2, width, height);
+    const msssim = calculateMSSSIM(data1, data2, width, height);
+    const butteraugli = calculateButteraugli(data1, data2, width, height);
+    const flip = calculateFLIP(data1, data2, width, height);
+    const lpips = calculateLPIPS(data1, data2, width, height);
+    const ssimulacra2 = calculateSSIMULACRA2(data1, data2, width, height);
     
     return {
         canvas1, canvas2, diffCanvas,
@@ -166,59 +250,70 @@ const compareImages = (img1, img2, options = {}) => {
             maeG: (sumG / totalPixels).toFixed(2),
             maeB: (sumB / totalPixels).toFixed(2),
             mse: mse.toFixed(2),
-            psnr: mse === 0 ? '∞' : (20 * Math.log10(255 / Math.sqrt(mse))).toFixed(2)
+            psnr: psnr === Infinity ? '∞' : psnr.toFixed(2),
+            ssim: ssim.toFixed(4),
+            msssim: msssim.toFixed(4),
+            butteraugli: butteraugli.toFixed(4),
+            flip: flip,
+            lpips: lpips,
+            ssimulacra2: ssimulacra2
         },
         bins, width, height
     };
 };
 
 // UI Updates
-const updateCanvas = (canvasId, canvas, width, height) => {
-    const el = $(canvasId);
-    el.width = width;
-    el.height = height;
-    el.getContext('2d').drawImage(canvas, 0, 0);
+const populateMetricsModelSelector = () => {
+    if (!DOM.metricsModelSelect) return;
+    const models = Object.keys(state.metricsResults);
+    if (!models.length) return;
+    
+    DOM.metricsModelSelect.innerHTML = models.map(m => 
+        `<option value="${m}">${getModelDisplayName(m)}</option>`
+    ).join('');
+    
+    DOM.metricsModelSelect.value = models[0];
+    DOM.metricsModelSelect.onchange = (e) => {
+        const result = state.metricsResults[e.target.value];
+        if (result) {
+            displayMetrics(result.metrics);
+            updateBinsTable(result.metrics, result.bins);
+        }
+    };
 };
 
-const displayComparison = (comparisonData) => {
-    const { canvas1, canvas2, diffCanvas, metrics, bins, width, height } = comparisonData;
-    
-    updateCanvas('original-canvas', canvas1, width, height);
-    updateCanvas('generated-canvas', canvas2, width, height);
-    updateCanvas('diff-canvas', diffCanvas, width, height);
-    
-    $('original-info').textContent = `${width} × ${height} pixels`;
-    $('generated-info').textContent = `${width} × ${height} pixels`;
-    $('diff-info').textContent = `Threshold: ${$('threshold-slider').value}`;
-    
-    Object.entries({
-        'metric-total': metrics.totalPixels.toLocaleString(),
-        'metric-diff': metrics.differentPixels.toLocaleString(),
-        'metric-percent': `${metrics.percentDifferent}%`,
-        'metric-psnr': `${metrics.psnr} dB`,
-        'metric-mae-r': metrics.maeR,
-        'metric-mae-g': metrics.maeG,
-        'metric-mae-b': metrics.maeB,
-        'metric-mse': metrics.mse
-    }).forEach(([id, value]) => $(id).textContent = value);
-    
-    $('bins-table').innerHTML = bins.map(bin => {
-        const percentage = ((bin.count / metrics.totalPixels) * 100).toFixed(2);
-        const barWidth = Math.min(100, percentage * 2);
-        return `<tr>
-            <td><strong>${bin.label}</strong></td>
-            <td>${bin.count.toLocaleString()}</td>
-            <td>${percentage}%</td>
-            <td><div class="progress" style="height: 20px;">
-                <div class="progress-bar" style="width: ${barWidth}%; background-color: ${bin.color};">
-                    ${percentage > 5 ? percentage + '%' : ''}
-                </div>
-            </div></td>
-        </tr>`;
+const displayMetrics = (m) => {
+    const updates = [
+        ['metric-total', m.totalPixels.toLocaleString()],
+        ['metric-diff', m.differentPixels.toLocaleString()],
+        ['metric-percent', `${m.percentDifferent}%`],
+        ['metric-psnr', `${m.psnr} dB`],
+        ['metric-mae-r', m.maeR],
+        ['metric-mae-g', m.maeG],
+        ['metric-mae-b', m.maeB],
+        ['metric-mse', m.mse],
+        ['metric-ssim', m.ssim],
+        ['metric-msssim', m.msssim],
+        ['metric-butteraugli', m.butteraugli],
+        ['metric-flip', m.flip],
+        ['metric-lpips', m.lpips],
+        ['metric-ssimulacra2', m.ssimulacra2]
+    ];
+    updates.forEach(([id, val]) => {
+        const el = $(id);
+        if (el) el.textContent = val;
+    });
+};
+
+const updateBinsTable = (metrics, bins) => {
+    if (!DOM.binsTable || !bins) return;
+    DOM.binsTable.innerHTML = bins.map(b => {
+        const pct = ((b.count / metrics.totalPixels) * 100).toFixed(2);
+        const width = Math.min(100, pct * 2);
+        return `<tr><td><strong>${b.label}</strong></td><td>${b.count.toLocaleString()}</td><td>${pct}%</td>
+            <td><div class="progress" style="height:20px"><div class="progress-bar" style="width:${width}%;background-color:${b.color}">
+            ${pct > 5 ? pct + '%' : ''}</div></div></td></tr>`;
     }).join('');
-    
-    state.comparisonData = { metrics, bins, width, height };
-    $('export-btn').disabled = false;
 };
 
 // Event Handlers
@@ -244,18 +339,76 @@ const handleGenerate = async () => {
     const promptText = $('prompt-text').value.trim();
     if (!promptText) return showAlert("No Prompt", "Please enter a prompt.", "warning");
     
+    // Get selected models from checkboxes
+    const checkboxes = document.querySelectorAll('.model-checkbox:checked');
+    const selectedOptions = Array.from(checkboxes).map(cb => cb.value);
+    if (selectedOptions.length === 0) {
+        return showAlert("No Model", "Please select at least one model.", "warning");
+    }
+    
     const btn = $('generate-btn');
     toggleButtonSpinner(btn, true);
     
     try {
         const imageBase64 = await imageToBase64(state.uploadedImage);
-        state.generatedImage = await generateClone(imageBase64, promptText);
         state.currentPrompt = promptText;
+        state.generatedImages = {};
         
-        $('compare-btn').disabled = false;
+        // Get original image dimensions
+        const originalImg = await loadImageFromUrl(imageBase64);
+        const originalDimensions = {
+            width: originalImg.width,
+            height: originalImg.height
+        };
         
-        showAlert("Success", "Clone generated successfully! Click Compare to analyze.", "success");
-        await handleCompare();
+        showAlert("Generating", `Starting batch generation for ${selectedOptions.length} model(s)...`, "info");
+        
+        // Generate images in parallel batches
+        const batchSize = selectedOptions.length; // Process all models in one batch
+        const results = await Promise.allSettled(
+            selectedOptions.map(model => 
+                generateClone(imageBase64, promptText, model, originalDimensions)
+                    .then(imageUrl => ({ model, imageUrl, success: true }))
+                    .catch(error => ({ model, error: error.message, success: false }))
+            )
+        );
+        
+        // Process results
+        let successCount = 0;
+        let failedModels = [];
+        
+        results.forEach((result, index) => {
+            if (result.status === 'fulfilled' && result.value.success) {
+                state.generatedImages[result.value.model] = result.value.imageUrl;
+                successCount++;
+            } else {
+                const modelName = selectedOptions[index];
+                failedModels.push(modelName);
+                console.error(`Failed to generate for ${modelName}:`, result.reason || result.value?.error);
+            }
+        });
+        
+        state.selectedModels = Object.keys(state.generatedImages);
+        
+        if (successCount > 0) {
+            $('compare-btn').disabled = false;
+            
+            if (failedModels.length > 0) {
+                showAlert("Partial Success", 
+                    `Generated ${successCount} clone(s) successfully. Failed: ${failedModels.map(m => getModelDisplayName(m)).join(', ')}`, 
+                    "warning");
+            } else {
+                showAlert("Success", 
+                    `Generated ${successCount} clone(s) successfully in batch! Click Compare to analyze.`, 
+                    "success");
+            }
+            
+            await handleCompare();
+        } else {
+            showAlert("Generation Failed", 
+                `All ${selectedOptions.length} model(s) failed to generate images. Check console for details.`, 
+                "danger");
+        }
     } catch (error) {
         console.error('Generation error:', error);
         showAlert("Generation Error", error.message, "danger");
@@ -265,7 +418,7 @@ const handleGenerate = async () => {
 };
 
 const handleCompare = async () => {
-    if (!state.uploadedImage || !state.generatedImage) {
+    if (!state.uploadedImage || Object.keys(state.generatedImages).length === 0) {
         return showAlert("Missing Images", "Please upload and generate images first.", "warning");
     }
     
@@ -273,20 +426,43 @@ const handleCompare = async () => {
     toggleButtonSpinner(btn, true);
     
     try {
-        const [originalImg, generatedImg] = await Promise.all([
-            imageToBase64(state.uploadedImage).then(loadImageFromUrl),
-            loadImageFromUrl(state.generatedImage)
-        ]);
+        const originalImg = await imageToBase64(state.uploadedImage).then(loadImageFromUrl);
+        
+        const thresholdSlider = $('threshold-slider');
+        const threshold = thresholdSlider ? parseInt(thresholdSlider.value) : 10;
         
         const options = {
-            threshold: parseInt($('threshold-slider').value),
-            ignoreAlpha: $('ignore-alpha').checked,
-            ignoreWhite: $('ignore-white').checked,
-            resizeMode: $('resize-mode').value
+            threshold: threshold,
+            ignoreAlpha: false,
+            ignoreWhite: false,
+            resizeMode: 'stretch'
         };
         
-        displayComparison(compareImages(originalImg, generatedImg, options));
-        showAlert("Comparison Complete", "Pixel analysis finished!", "success");
+        state.metricsResults = {};
+        
+        // Compare each generated image
+        for (const [modelName, imageUrl] of Object.entries(state.generatedImages)) {
+            const generatedImg = await loadImageFromUrl(imageUrl);
+            const comparison = compareImages(originalImg, generatedImg, options);
+            state.metricsResults[modelName] = comparison;
+        }
+        
+        // Display all models' comparisons
+        displayAllModelImages();
+        
+        // Populate metrics model selector
+        populateMetricsModelSelector();
+        
+        // Display first model's metrics in main section
+        const firstModel = Object.keys(state.generatedImages)[0];
+        displayMetrics(state.metricsResults[firstModel].metrics);
+        updateBinsTable(state.metricsResults[firstModel].metrics, state.metricsResults[firstModel].bins);
+        $('export-btn').disabled = false;
+        
+        // Display comparison table
+        displayModelComparison();
+        
+        showAlert("Comparison Complete", "Pixel analysis finished for all models!", "success");
     } catch (error) {
         console.error('Comparison error:', error);
         showAlert("Comparison Error", error.message, "danger");
@@ -295,28 +471,193 @@ const handleCompare = async () => {
     }
 };
 
+const displayAllModelImages = () => {
+    const container = $('all-models-images');
+    if (!container) return;
+    
+    const models = Object.keys(state.metricsResults);
+    if (models.length === 0) return;
+    
+    let html = '';
+    
+    models.forEach(model => {
+        const { canvas1, canvas2, diffCanvas, metrics, width, height } = state.metricsResults[model];
+        const modelLabel = getModelDisplayName(model);
+        
+        // Create unique canvas IDs for this model
+        const canvasIds = {
+            original: 'model-original-' + model.replace(/[^a-zA-Z0-9]/g, '-'),
+            generated: 'model-generated-' + model.replace(/[^a-zA-Z0-9]/g, '-'),
+            diff: 'model-diff-' + model.replace(/[^a-zA-Z0-9]/g, '-')
+        };
+        
+        html += '<div class="row mb-4 border-bottom pb-4">' +
+            '<div class="col-12"><h5 class="text-primary"><i class="bi bi-robot"></i> ' + modelLabel + '</h5></div>' +
+            '<div class="col-md-4">' +
+                '<div class="card">' +
+                    '<div class="card-header bg-secondary text-white"><i class="bi bi-image"></i> Original</div>' +
+                    '<div class="card-body text-center">' +
+                        '<canvas id="' + canvasIds.original + '" class="diff-canvas"></canvas>' +
+                        '<div class="mt-2 small text-muted">' + width + ' × ' + height + ' pixels</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-4">' +
+                '<div class="card">' +
+                    '<div class="card-header bg-warning text-dark"><i class="bi bi-stars"></i> Generated Clone</div>' +
+                    '<div class="card-body text-center">' +
+                        '<canvas id="' + canvasIds.generated + '" class="diff-canvas"></canvas>' +
+                        '<div class="mt-2 small text-muted">' + width + ' × ' + height + ' pixels</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-4">' +
+                '<div class="card">' +
+                    '<div class="card-header bg-danger text-white"><i class="bi bi-exclamation-triangle"></i> Difference Map</div>' +
+                    '<div class="card-body text-center">' +
+                        '<canvas id="' + canvasIds.diff + '" class="diff-canvas"></canvas>' +
+                        '<div class="mt-2 small text-muted">SSIMULACRA2: ' + metrics.ssimulacra2 + ' | LPIPS: ' + metrics.lpips + '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+    });
+    
+    container.innerHTML = html;
+    
+    // Now draw the canvases
+    models.forEach(model => {
+        const { canvas1, canvas2, diffCanvas, width, height } = state.metricsResults[model];
+        const canvasIds = {
+            original: 'model-original-' + model.replace(/[^a-zA-Z0-9]/g, '-'),
+            generated: 'model-generated-' + model.replace(/[^a-zA-Z0-9]/g, '-'),
+            diff: 'model-diff-' + model.replace(/[^a-zA-Z0-9]/g, '-')
+        };
+        
+        const origCanvas = $(canvasIds.original);
+        const genCanvas = $(canvasIds.generated);
+        const diffCanvasEl = $(canvasIds.diff);
+        
+        if (origCanvas) {
+            origCanvas.width = width;
+            origCanvas.height = height;
+            origCanvas.getContext('2d').drawImage(canvas1, 0, 0);
+        }
+        
+        if (genCanvas) {
+            genCanvas.width = width;
+            genCanvas.height = height;
+            genCanvas.getContext('2d').drawImage(canvas2, 0, 0);
+        }
+        
+        if (diffCanvasEl) {
+            diffCanvasEl.width = width;
+            diffCanvasEl.height = height;
+            diffCanvasEl.getContext('2d').drawImage(diffCanvas, 0, 0);
+        }
+    });
+};
+
+const displayModelComparison = () => {
+    const tableBody = $('model-comparison-table');
+    if (!tableBody) return;
+    
+    const models = Object.keys(state.metricsResults);
+    if (models.length === 0) return;
+    
+    // Create comparison rows
+    const rows = models.map(model => {
+        const metrics = state.metricsResults[model].metrics;
+        const modelLabel = getModelDisplayName(model);
+        
+        return '<tr>' +
+            '<td><strong>' + modelLabel + '</strong></td>' +
+            '<td>' + metrics.psnr + ' dB</td>' +
+            '<td>' + metrics.ssim + '</td>' +
+            '<td>' + metrics.msssim + '</td>' +
+            '<td>' + metrics.ssimulacra2 + '</td>' +
+            '<td>' + metrics.butteraugli + '</td>' +
+            '<td>' + metrics.flip + '</td>' +
+            '<td>' + metrics.lpips + '</td>' +
+            '<td>' + metrics.percentDifferent + '%</td>' +
+        '</tr>';
+    }).join('');
+    
+    tableBody.innerHTML = rows;
+    
+    // Show best performing model for each metric
+    displayBestModels();
+};
+
+const displayBestModels = () => {
+    const bestDiv = $('best-models');
+    if (!bestDiv) return;
+    
+    const models = Object.keys(state.metricsResults);
+    if (models.length === 0) return;
+    
+    // Find best model for each metric (higher is better for PSNR, SSIM, MS-SSIM, SSIMULACRA2; lower is better for others)
+    const metricComparisons = {
+        'PSNR': { better: 'higher', key: 'psnr', humanAlign: 'Good' },
+        'SSIM': { better: 'higher', key: 'ssim', humanAlign: 'Excellent' },
+        'MS-SSIM': { better: 'higher', key: 'msssim', humanAlign: 'Excellent' },
+        'SSIMULACRA2': { better: 'higher', key: 'ssimulacra2', humanAlign: 'Excellent' },
+        'Butteraugli': { better: 'lower', key: 'butteraugli', humanAlign: 'Good' },
+        'FLIP': { better: 'lower', key: 'flip', humanAlign: 'Good' },
+        'LPIPS': { better: 'lower', key: 'lpips', humanAlign: 'Excellent' }
+    };
+    
+    let html = '<h5>Best Performing Models by Metric:</h5><div class="row g-2">';
+    
+    for (const [metricName, config] of Object.entries(metricComparisons)) {
+        let bestModel = models[0];
+        let bestValue = parseFloat(state.metricsResults[bestModel].metrics[config.key]);
+        
+        for (const model of models) {
+            const value = parseFloat(state.metricsResults[model].metrics[config.key]);
+            if (config.better === 'higher' ? value > bestValue : value < bestValue) {
+                bestValue = value;
+                bestModel = model;
+            }
+        }
+        
+        const modelLabel = getModelDisplayName(bestModel);
+        
+        html += '<div class="col-md-4">' +
+            '<div class="alert alert-info mb-2">' +
+                '<strong>' + metricName + '</strong> (' + config.humanAlign + ' human alignment)<br>' +
+                '<span class="badge bg-primary">' + modelLabel + '</span>: ' + bestValue +
+            '</div>' +
+        '</div>';
+    }
+    
+    html += '</div>';
+    html += '<div class="alert alert-success mt-3"><strong>Note:</strong> SSIM, MS-SSIM, SSIMULACRA2, and LPIPS are considered to have the best alignment with human perception of image quality.</div>';
+    
+    bestDiv.innerHTML = html;
+};
+
 const handleExport = async () => {
-    if (!state.comparisonData) return showAlert("No Data", "Please run a comparison first.", "warning");
+    if (Object.keys(state.metricsResults).length === 0) return showAlert("No Data", "Please run a comparison first.", "warning");
     
     const report = {
         timestamp: new Date().toISOString(),
         prompt: state.currentPrompt,
-        model: state.selectedModel,
-        metrics: state.comparisonData.metrics,
-        bins: state.comparisonData.bins.map(b => ({
-            range: b.label,
-            count: b.count,
-            percentage: ((b.count / state.comparisonData.metrics.totalPixels) * 100).toFixed(2)
+        models: state.selectedModels,
+        allMetrics: Object.keys(state.metricsResults).map(model => ({
+            model: model,
+            metrics: state.metricsResults[model].metrics,
+            bins: state.metricsResults[model].bins
         })),
         settings: {
-            threshold: parseInt($('threshold-slider').value),
-            ignoreAlpha: $('ignore-alpha').checked,
-            ignoreWhite: $('ignore-white').checked,
-            resizeMode: $('resize-mode').value
+            threshold: $('threshold-slider') ? parseInt($('threshold-slider').value) : 10,
+            ignoreAlpha: false,
+            ignoreWhite: false,
+            resizeMode: 'stretch'
         },
         images: {
             input: await imageToBase64(state.uploadedImage),
-            output: state.generatedImage
+            outputs: state.generatedImages
         }
     };
     
@@ -363,29 +704,34 @@ const setupEventListeners = () => {
         await openaiConfig({ defaultBaseUrls: DEFAULT_BASE_URLS, show: true });
         await loadModels();
     });
-    $('model-select').addEventListener('change', e => state.selectedModel = e.target.value);
     $('generate-btn').addEventListener('click', handleGenerate);
     $('compare-btn').addEventListener('click', handleCompare);
     $('export-btn').addEventListener('click', handleExport);
     
-    // Comparison option handlers
-    const recompare = () => {
-        if (state.uploadedImage && state.generatedImage) handleCompare();
-    };
+    // Threshold slider handler
+    const thresholdSlider = $('threshold-slider');
+    if (thresholdSlider) {
+        thresholdSlider.addEventListener('input', e => {
+            const thresholdValue = $('threshold-value');
+            if (thresholdValue) {
+                thresholdValue.textContent = e.target.value;
+            }
+            // Recompare if images are already generated
+            if (state.uploadedImage && Object.keys(state.generatedImages).length > 0) {
+                handleCompare();
+            }
+        });
+    }
     
-    $('threshold-slider').addEventListener('input', e => {
-        $('threshold-value').textContent = e.target.value;
-        recompare();
-    });
-    $('resize-mode').addEventListener('change', recompare);
-    ['ignore-alpha', 'ignore-white'].forEach(id => $(id).addEventListener('change', recompare));
 };
 
 // Initialize
 (async () => {
+    cacheDOM();
     setupEventListeners();
     await loadModels();
-    $('generate-btn').disabled = true;
-    $('prompt-text').value = PROMPT_PRESETS['pixel-perfect'];
+    if (DOM.generateBtn) DOM.generateBtn.disabled = true;
+    const promptText = $('prompt-text');
+    if (promptText) promptText.value = PROMPT_PRESETS['pixel-perfect'];
     showAlert("Ready", "Upload an image to begin!", "info");
 })();
