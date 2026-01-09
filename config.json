@@ -5,32 +5,32 @@
   "threshold": 10,
   "images": {
     "original": {
-      "path": "images/original_1767928334073.jpg",
+      "path": "images/original_1767928334073.webp",
       "name": "human-portrait-nature-focus.jpg"
     },
     "generated": {
       "google/gemini-2.5-flash-image-preview": {
-        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767928334107.png",
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767928334107.webmp",
         "modelDisplayName": "gemini-2.5-flash-image-preview"
       },
       "google/gemini-3-pro-image-preview": {
-        "path": "images/generated_google_gemini_3_pro_image_preview_1767928334126.png",
+        "path": "images/generated_google_gemini_3_pro_image_preview_1767928334126.webp",
         "modelDisplayName": "gemini-3-pro-image-preview"
       },
       "gpt-image-1.5": {
-        "path": "images/generated_gpt_image_1_5_1767928334142.png",
+        "path": "images/generated_gpt_image_1_5_1767928334142.webp",
         "modelDisplayName": "gpt-image-1.5"
       },
       "chatgpt-image-latest": {
-        "path": "images/generated_chatgpt_image_latest_1767928334209.png",
+        "path": "images/generated_chatgpt_image_latest_1767928334209.webp",
         "modelDisplayName": "chatgpt-image-latest"
       },
       "gpt-image-1": {
-        "path": "images/generated_gpt_image_1_1767928334237.png",
+        "path": "images/generated_gpt_image_1_1767928334237.webp",
         "modelDisplayName": "gpt-image-1"
       },
       "gpt-image-1-mini": {
-        "path": "images/generated_gpt_image_1_mini_1767928334262.png",
+        "path": "images/generated_gpt_image_1_mini_1767928334262.webp",
         "modelDisplayName": "gpt-image-1-mini"
       }
     }
@@ -647,32 +647,32 @@
   "threshold": 10,
   "images": {
     "original": {
-      "path": "images/original_1767928512971.jpg",
+      "path": "images/original_1767928512971.webp",
       "name": "OET.jpg"
     },
     "generated": {
       "google/gemini-2.5-flash-image-preview": {
-        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767928512984.png",
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767928512984.webp",
         "modelDisplayName": "gemini-2.5-flash-image-preview"
       },
       "google/gemini-3-pro-image-preview": {
-        "path": "images/generated_google_gemini_3_pro_image_preview_1767928513021.png",
+        "path": "images/generated_google_gemini_3_pro_image_preview_1767928513021.webp",
         "modelDisplayName": "gemini-3-pro-image-preview"
       },
       "gpt-image-1.5": {
-        "path": "images/generated_gpt_image_1_5_1767928513039.png",
+        "path": "images/generated_gpt_image_1_5_1767928513039.webp",
         "modelDisplayName": "gpt-image-1.5"
       },
       "chatgpt-image-latest": {
-        "path": "images/generated_chatgpt_image_latest_1767928513058.png",
+        "path": "images/generated_chatgpt_image_latest_1767928513058.webp",
         "modelDisplayName": "chatgpt-image-latest"
       },
       "gpt-image-1": {
-        "path": "images/generated_gpt_image_1_1767928513080.png",
+        "path": "images/generated_gpt_image_1_1767928513080.webp",
         "modelDisplayName": "gpt-image-1"
       },
       "gpt-image-1-mini": {
-        "path": "images/generated_gpt_image_1_mini_1767928513102.png",
+        "path": "images/generated_gpt_image_1_mini_1767928513102.webp",
         "modelDisplayName": "gpt-image-1-mini"
       }
     }
@@ -1289,32 +1289,32 @@
   "threshold": 10,
   "images": {
     "original": {
-      "path": "images/original_1767929009952.jpg",
+      "path": "images/original_1767929009952.webp",
       "name": "pexels-chevanon-1108099.jpg"
     },
     "generated": {
       "google/gemini-2.5-flash-image-preview": {
-        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767929010029.png",
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767929010029.webp",
         "modelDisplayName": "gemini-2.5-flash-image-preview"
       },
       "google/gemini-3-pro-image-preview": {
-        "path": "images/generated_google_gemini_3_pro_image_preview_1767929010071.png",
+        "path": "images/generated_google_gemini_3_pro_image_preview_1767929010071.webp",
         "modelDisplayName": "gemini-3-pro-image-preview"
       },
       "gpt-image-1.5": {
-        "path": "images/generated_gpt_image_1_5_1767929010099.png",
+        "path": "images/generated_gpt_image_1_5_1767929010099.webp",
         "modelDisplayName": "gpt-image-1.5"
       },
       "chatgpt-image-latest": {
-        "path": "images/generated_chatgpt_image_latest_1767929010149.png",
+        "path": "images/generated_chatgpt_image_latest_1767929010149.webp",
         "modelDisplayName": "chatgpt-image-latest"
       },
       "gpt-image-1": {
-        "path": "images/generated_gpt_image_1_1767929010227.png",
+        "path": "images/generated_gpt_image_1_1767929010227.webp",
         "modelDisplayName": "gpt-image-1"
       },
       "gpt-image-1-mini": {
-        "path": "images/generated_gpt_image_1_mini_1767929010280.png",
+        "path": "images/generated_gpt_image_1_mini_1767929010280.webp",
         "modelDisplayName": "gpt-image-1-mini"
       }
     }

@@ -114,7 +114,7 @@ const generateClone = async (imageBase64, promptText, model, originalDimensions)
         formData.append('model', model);
         formData.append('prompt', fullPrompt);
         formData.append('n', '1');
-        formData.append('image', blob, 'image.png');
+        formData.append('image', blob, 'image.webp');
         const response = await fetch(`${baseUrl}/images/edits`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${apiKey}` },
@@ -407,7 +407,7 @@ const loadSessionIntoUI = async (session) => {
         }
         if (session.images?.original?.path) try {
             const blob = await tryLoadImage(session.images.original.path);
-            state.uploadedImage = new File([blob], session.images.original.name || 'original.jpg', { type: blob.type });
+            state.uploadedImage = new File([blob], session.images.original.name || 'original.webp', { type: blob.type });
             const preview = $('upload-preview');
             if (preview) preview.innerHTML = `<img src="${URL.createObjectURL(state.uploadedImage)}" class="image-preview mt-2" alt="Original">`;
         } catch (err) { console.warn('Failed to load original image:', err); }

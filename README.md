@@ -250,9 +250,6 @@ API keys stored in browser's `localStorage`:
 - Good perceptual quality
 - Excellent for batch comparisons
 
-### Excluded Models
-- Gemini 3 Pro variants (filtered out via regex)
-
 ### Available GPT Models
 - gpt-image-1.5
 - chatgpt-image-latest
@@ -285,29 +282,3 @@ API keys stored in browser's `localStorage`:
 MIT License - Free to use and modify for personal and commercial projects.
 
 ---
-
-## 🔬 Research Note
-
-Metric implementations are optimized for browser performance. For research-grade accuracy in academic settings, consider using dedicated libraries like:
-- Python: `scikit-image`, `pytorch-msssim`, `lpips`
-- MATLAB: Image Processing Toolbox
-- Command-line: `butteraugli`, `flip`
-
-**This tool is ideal for**: Rapid prototyping, model comparison, visual QA, and educational purposes.
-
----
-
-## 📞 Support
-
-For issues or questions:
-1. Check browser console for errors
-2. Verify API key configuration
-3. Ensure CORS is properly handled
-4. Test with demo sessions first
-
-**Tip**: Use browser DevTools Network tab to inspect API requests/responses.
-
----
-
-**Last Updated**: January 2026  
-**Version**: 2.0 (Optimized, Dual API, Multi-Metric)
