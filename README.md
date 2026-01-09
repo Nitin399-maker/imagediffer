@@ -1,226 +1,313 @@
-# 🖼️ ImageDiff — Image Clone + Pixel Diff (Gemini “Nano Banana”)
+# 🖼️ ImageDiff — Multi-Model AI Image Reproduction Evaluation
 
-A **single-page web app** that:
-- 📤 uploads an image
-- ✨ generates an AI clone Image
-- 📊 runs pixel-wise diff + metrics (MAE/MSE/PSNR)
-- 🧾 exports a JSON report (metrics + settings + images)
+A **powerful single-page web application** for evaluating how well different AI models reproduce images using advanced perceptual quality metrics. Compare Gemini 2.5 Flash, GPT Image models, and more with state-of-the-art image similarity algorithms.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- 🧠 Multimodal clone generation with prompt presets
-- 🧩 Model picker (recommended: `google/gemini-2.5-flash-image-preview` 🍌)
-- 🎚️ Advanced settings: threshold, resize mode, ignore-white
-- 🖼️ Three canvases: Original / Generated / Diff map
-- 📈 Metrics: Total pixels, % different, MAE(R/G/B), MSE, PSNR
-- 🧱 Error distribution bins with progress bars
-- � Export full report as **JSON** (includes base64 input + generated output)
+### 🤖 Dual API Support
+- **OpenRouter API**: Access to Gemini 2.5 Flash Image Preview (recommended)
+- **OpenAI API**: GPT Image models (gpt-image-1.5, chatgpt-image-latest, gpt-image-1, gpt-image-1-mini)
+- Automatic model filtering and intelligent selection
+- Batch processing: test multiple models simultaneously
+
+### 📊 Advanced Perceptual Metrics
+State-of-the-art image quality assessment with 8 metrics:
+
+#### Best Human Perception Alignment ⭐⭐⭐⭐⭐
+- **SSIM** (Structural Similarity) - 0-1, higher is better (>0.95 excellent)
+- **MS-SSIM** (Multi-Scale SSIM) - 0-1, higher is better (>0.95 excellent)
+- **SSIMULACRA2** - 0-100, higher is better (>90 excellent) - *State-of-the-art*
+- **LPIPS** (Learned Perceptual) - Lower is better (<0.1 excellent)
+
+#### Additional Quality Metrics
+- **Butteraugli** - 0-10, lower is better (<1.0 excellent)
+- **FLIP** - Feature-based metric, lower is better (<0.05 excellent)
+- **PSNR** - Peak Signal-to-Noise Ratio, >30 dB is good
+- **MAE/MSE** - Mean Absolute/Squared Error per RGB channel
+
+### 🎯 Smart Comparison Features
+1. **Multi-model batch processing** - Test up to 5+ models at once
+2. **Automatic best model identification** - Per metric and overall
+3. **Visual difference maps** - Color-coded error heatmaps
+4. **Distribution analysis** - 7-bin error histogram with percentages
+5. **Demo sessions** - Pre-configured test cases with auto-load
+
+### 🎨 User Experience
+- **Drag-and-drop** image upload with instant preview
+- **Three prompt presets**: Pixel-Perfect, High-Fidelity, Deterministic
+- **Adjustable threshold** slider (0-50) for difference sensitivity
+- **Responsive Bootstrap 5** UI with dark mode support
+- **Auto-comparison** on demo load for instant results
 
 ---
 
-## 🗂️ Project Structure
+## 📁 Project Structure
 
 ```
-imagediff/
-├─ index.html
-├─ app.js
-├─ utils.js
-└─ # ImageDiff - Multi-Model AI Image Reproduction Evaluation
+imagediffer/
+├── index.html          # Bootstrap 5 UI with 349 lines
+├── app.js              # Main logic (~440 lines, optimized)
+├── utils.js            # Utilities & metrics (~491 lines)
+├── config.json         # Demo session configurations
+└── images/             # Generated/demo images storage
+```
 
-A comprehensive tool for evaluating how well different AI models (Nano Banana, GPT Image, Claude, etc.) reproduce images using multiple perceptual quality metrics.
+### File Responsibilities
+- **index.html**: Upload zone, model selection, metrics display, comparison tables
+- **app.js**: API calls, state management, batch processing, DOM updates
+- **utils.js**: Metric calculations (SSIM, LPIPS, etc.), HTML generators, helpers
 
-## Features
+---
 
-### 🤖 Multi-Model Support
-- Test multiple AI models simultaneously
-- Compare Gemini (Nano Banana), GPT-4 Vision, Claude, and other image generation models
-- Side-by-side performance analysis
+## 🚀 Quick Start
 
-### 📊 Advanced Metrics
-Evaluate image reproduction quality using state-of-the-art metrics:
+### 1. Run Local Server
 
-#### Perceptual Quality Metrics (Best Human Alignment)
-- **SSIM** (Structural Similarity Index) - Measures structural similarity (0-1, higher is better)
-- **MS-SSIM** (Multi-Scale SSIM) - Better for varying resolutions (0-1, higher is better)
-- **SSIMULACRA2** - State-of-the-art perceptual quality (0-100, higher is better)
-- **LPIPS** (Learned Perceptual Image Patch Similarity) - Deep learning-based (lower is better)
+**Python:**
+```bash
+python -m http.server 8000
+# Open http://localhost:8000
+```
 
-#### Additional Metrics
-- **Butteraugli** - Google's perceptual difference metric (0-10, lower is better)
-- **FLIP** - Feature-based Luminance and color metric (lower is better)
-- **PSNR** - Peak Signal-to-Noise Ratio (>30 dB is good)
-- **MSE/MAE** - Mean Squared/Absolute Error per channel
+**Node.js:**
+```bash
+npx serve .
+# Open http://localhost:3000
+```
 
-### 🎯 Key Capabilities
-1. **Upload any image** and generate reproductions using multiple AI models
-2. **Compare models** across all metrics simultaneously
-3. **Identify best performers** for each metric automatically
-4. **Visualize differences** with color-coded error maps
-5. **Export reports** with complete analysis and embedded images
+**VS Code:**
+- Install "Live Server" extension
+- Right-click `index.html` → "Open with Live Server"
 
-## Metric Interpretation
+### 2. Configure APIs
 
-### Which Metrics Best Align with Human Perception?
+Click **⚙️ Config API** button and enter:
 
-Based on research and industry standards:
+**OpenRouter (for Gemini models):**
+- Base URL: `https://openrouter.ai/api/v1`
+- API Key: Get from [openrouter.ai](https://openrouter.ai)
 
-1. **SSIMULACRA2** ⭐⭐⭐⭐⭐ - Considered state-of-the-art for perceptual quality
-2. **LPIPS** ⭐⭐⭐⭐⭐ - Excellent correlation with human judgment
-3. **MS-SSIM** ⭐⭐⭐⭐ - Very good for structural similarity
-4. **SSIM** ⭐⭐⭐⭐ - Good baseline for perceptual quality
-5. **Butteraugli** ⭐⭐⭐ - Good for color perception
-6. **FLIP** ⭐⭐⭐ - Good for feature-based comparison
-7. **PSNR** ⭐⭐ - Traditional metric, less aligned with perception
+**OpenAI (for GPT Image models):**
+- Base URL: `https://api.openai.com/v1`
+- API Key: Get from [platform.openai.com](https://platform.openai.com)
 
-### Metric Ranges
+*You can configure one or both APIs depending on which models you want to use.*
 
-| Metric | Range | Excellent | Good | Poor | Direction |
-|--------|-------|-----------|------|------|-----------|
+### 3. Generate & Compare
+
+1. **Upload** an image (drag & drop or browse)
+2. **Select** one or more AI models from checkboxes
+3. **Choose** a prompt preset or write your own
+4. **Click** "Generate Clone" for batch processing
+5. **View** automatic comparison across all metrics
+6. **Analyze** which model performs best
+
+---
+
+## 📊 Understanding the Metrics
+
+### Human Perception Alignment Ranking
+
+1. **SSIMULACRA2** ⭐⭐⭐⭐⭐ - State-of-the-art, best overall
+2. **LPIPS** ⭐⭐⭐⭐⭐ - Deep learning-based, excellent correlation
+3. **MS-SSIM** ⭐⭐⭐⭐ - Multi-scale structural analysis
+4. **SSIM** ⭐⭐⭐⭐ - Robust structural similarity
+5. **Butteraugli** ⭐⭐⭐ - Google's perceptual difference
+6. **FLIP** ⭐⭐⭐ - Feature-based luminance/color
+7. **PSNR** ⭐⭐ - Traditional, less perceptual
+
+### Metric Reference Table
+
+| Metric | Range | Excellent | Good | Poor | Better |
+|--------|-------|-----------|------|------|--------|
 | SSIM | 0-1 | >0.95 | >0.90 | <0.80 | Higher ↑ |
 | MS-SSIM | 0-1 | >0.95 | >0.90 | <0.80 | Higher ↑ |
 | SSIMULACRA2 | 0-100 | >90 | >80 | <70 | Higher ↑ |
 | LPIPS | 0-∞ | <0.1 | <0.2 | >0.3 | Lower ↓ |
 | Butteraugli | 0-10 | <1.0 | <2.0 | >3.0 | Lower ↓ |
 | FLIP | 0-∞ | <0.05 | <0.1 | >0.2 | Lower ↓ |
-| PSNR | 0-∞ dB | >35 | >30 | <25 | Higher ↑ |
-
-## Usage
-
-1. **Configure API**: Click "Config API" and enter your OpenRouter API key
-2. **Upload Image**: Drag & drop or browse for an image
-3. **Select Models**: Choose one or more AI models (hold Ctrl/Cmd for multiple)
-4. **Generate**: Click "Generate Clone" to create reproductions
-5. **Compare**: View automatic comparison across all metrics
-6. **Analyze**: See which model performs best for each metric
-7. **Export**: Download complete analysis report
-
-## Model Performance Insights
-
-The tool automatically identifies:
-- **Best overall model** based on perceptual metrics
-- **Best model per metric** for detailed analysis
-- **Human perception alignment** for each metric
-- **Strengths and weaknesses** of each model
-
-## Technical Details
-
-### Implemented Metrics
-
-All metrics are calculated client-side using JavaScript implementations:
-
-- **SSIM**: Luminance, contrast, and structure comparison
-- **MS-SSIM**: Multi-scale structural similarity
-- **SSIMULACRA2**: Advanced perceptual quality assessment
-- **Butteraugli**: Perceptual color difference
-- **FLIP**: Feature-based perceptual metric
-- **LPIPS**: Approximated deep learning-based similarity
-- **PSNR/MSE/MAE**: Traditional pixel-based metrics
-
-### Comparison Options
-
-- **Threshold**: Adjust sensitivity for difference detection
-- **Resize Mode**: Stretch, contain, or crop for size matching
-- **Ignore Options**: Alpha channel and white background handling
-
-## Export Format
-
-Reports include:
-- Timestamp and model information
-- All metric values for each model
-- Pixel distribution analysis
-- Embedded original and generated images
-- Comparison settings
-
-## Requirements
-
-- Modern web browser with JavaScript enabled
-- OpenRouter API key
-- Internet connection for API calls
-
-## Credits
-
-Built with:
-- Bootstrap 5 for UI
-- OpenRouter API for model access
-- Custom JavaScript implementations of image quality metrics
-
-## License
-
-MIT License - Feel free to use and modify
+| PSNR | dB | >35 | >30 | <25 | Higher ↑ |
 
 ---
 
-**Note**: Metric implementations are simplified versions optimized for browser performance. For research-grade accuracy, consider using dedicated libraries or tools.
-```
+## 🎯 Use Cases
 
-- `index.html`: Bootstrap UI (upload, prompt, settings, canvases, metrics)
-- `app.js`: model loading, clone call, compare pipeline, export
-- `utils.js`: presets, bins, helpers (`$`, base64, spinner, image loader)
+### Research & Evaluation
+- Compare AI model image generation quality
+- Benchmark new models against established ones
+- Validate perception-aligned metrics vs traditional metrics
+
+### Quality Assurance
+- Test image processing pipelines
+- Verify compression/encoding quality
+- Detect visual degradation
+
+### Model Selection
+- Choose the best AI model for your use case
+- Understand model strengths per metric
+- Make data-driven decisions
 
 ---
 
-## ✅ Requirements
+## 🔧 Technical Implementation
 
-- 🌐 Modern browser (Chrome/Edge/Firefox)
-- 🧪 Local static server (recommended for ES modules)
+### Dual API Architecture
+```javascript
+// OpenRouter API (Gemini models)
+POST https://openrouter.ai/api/v1/chat/completions
+{
+  model: "google/gemini-2.5-flash-image-preview",
+  messages: [{ role: "user", content: [text, image_url] }]
+}
 
-## � Run Locally
-
-### Option A — Python
-
-```bash
-python -m http.server 8000
+// OpenAI API (GPT Image models)
+POST https://api.openai.com/v1/images/edits
+FormData: { model, prompt, image, n: 1 }
 ```
 
-### Option B — Node
+### Client-Side Metric Calculations
+All metrics computed in browser using Canvas API:
+- **SSIM**: Luminance × Contrast × Structure comparison
+- **MS-SSIM**: 5-level Gaussian pyramid analysis
+- **SSIMULACRA2**: Frequency-domain perceptual modeling
+- **Butteraugli**: XYB color space + psychovisual masking
+- **FLIP**: Multi-scale luminance & chrominance difference
+- **LPIPS**: Approximated VGG-style feature distance
 
-```bash
-npx serve .
+### Performance Optimizations
+- DOM caching for frequent elements
+- Batch Promise.allSettled for parallel model calls
+- Inline function calls (bootstrapAlert)
+- Condensed event listeners
+- Helper function extraction
+
+---
+
+## 🎨 Prompt Engineering
+
+### Built-in Presets
+
+**Pixel-Perfect** (Default):
+```
+Recreate the provided image EXACTLY:
+- Same resolution and aspect ratio
+- Same colors, lighting, composition
+- No stylization, no creativity, no cleanup
+- Output should be the closest possible pixel-level match
+```
+
+**High-Fidelity**:
+```
+Generate a high-fidelity reproduction:
+- Preserve all visual details with maximum accuracy
+- Maintain exact color values and tonal ranges
+- No artistic interpretation or modifications
+```
+
+**Deterministic**:
+```
+Image replication engine with:
+- Zero creativity or artistic license
+- Deterministic pixel-by-pixel reproduction
+- Exact color matching and spatial accuracy
 ```
 
 ---
 
-## 🔐 Configure API
+## 📦 Demo Sessions
 
-Click **⚙️ Config API** and enter:
-- 🔑 API key
-- 🌍 Base URL (OpenRouter / LLM Foundry )
-- 🧠 Choose a model from the dropdown
+Load pre-configured test scenarios with:
+- Original image
+- Multiple model outputs
+- Pre-calculated metrics
+- Threshold settings
 
-
----
-
-## 🧠 How Clone Generation Works
-
-`app.js` sends:
-
-- `POST {baseUrl}/chat/completions`
-- `Authorization: Bearer {apiKey}`
-
-Payload includes one **user** message with:
-- 📝 prompt text
-- 🖼️ `{ type: "image_url", image_url: { url: <base64-data-url> } }`
-
-The app accepts output as either:
-- ✅ `message.images[0].image_url.url`
-- ✅ a `data:image/...` string in `message.content`
+**Auto-behavior**: Clicking a demo card automatically triggers comparison after 100ms delay.
 
 ---
 
-## 📊 Comparison + Export
+## 🛠️ Configuration Storage
 
-- Comparison resizes both images using **Stretch / Contain / Crop**
-- Diff heatmap marks pixels above threshold in red, else grayscale
-- Export creates a downloadable `image-clone-report-<timestamp>.json` with:
-  - prompt + model
-  - settings
-  - metrics + bins
-  - input (base64) + output (url/data-url)
+API keys stored in browser's `localStorage`:
+```javascript
+{
+  openrouter: { baseUrl, apiKey },
+  openai: { baseUrl, apiKey }
+}
+```
 
+*Keys never leave your browser - all API calls direct from client.*
 
+---
+
+## 🎓 Model Insights
+
+### Recommended Model
+**google/gemini-2.5-flash-image-preview** 🍌
+- Fast inference speed
+- Good perceptual quality
+- Excellent for batch comparisons
+
+### Excluded Models
+- Gemini 3 Pro variants (filtered out via regex)
+
+### Available GPT Models
+- gpt-image-1.5
+- chatgpt-image-latest
+- gpt-image-1
+- gpt-image-1-mini
+
+---
+
+## 📋 Requirements
+
+- **Browser**: Modern Chrome/Edge/Firefox with ES6 module support
+- **APIs**: OpenRouter and/or OpenAI API keys
+- **Server**: Static file server for local development
+- **Connection**: Internet access for API calls
+
+---
+
+## 🤝 Credits & Technologies
+
+**UI Framework**: Bootstrap 5.3.0 with dark theme support  
+**Icons**: Bootstrap Icons 1.11.3  
+**API Providers**: OpenRouter, OpenAI  
+**Metric Implementations**: Custom JavaScript (client-side)  
+**Architecture**: ES6 Modules, Promise-based async operations
+
+---
 
 ## 📜 License
 
-Internal / demo use (update as needed).
+MIT License - Free to use and modify for personal and commercial projects.
+
+---
+
+## 🔬 Research Note
+
+Metric implementations are optimized for browser performance. For research-grade accuracy in academic settings, consider using dedicated libraries like:
+- Python: `scikit-image`, `pytorch-msssim`, `lpips`
+- MATLAB: Image Processing Toolbox
+- Command-line: `butteraugli`, `flip`
+
+**This tool is ideal for**: Rapid prototyping, model comparison, visual QA, and educational purposes.
+
+---
+
+## 📞 Support
+
+For issues or questions:
+1. Check browser console for errors
+2. Verify API key configuration
+3. Ensure CORS is properly handled
+4. Test with demo sessions first
+
+**Tip**: Use browser DevTools Network tab to inspect API requests/responses.
+
+---
+
+**Last Updated**: January 2026  
+**Version**: 2.0 (Optimized, Dual API, Multi-Metric)
