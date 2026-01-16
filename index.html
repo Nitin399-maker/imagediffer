@@ -83,6 +83,40 @@
             </div>
         </div>
 
+        <!-- Meta-Analysis Section (Collapsible) -->
+        <div class="card my-4" id="meta-analysis-card" style="display: none;">
+            <div class="card-header bg-primary text-white" data-bs-toggle="collapse" data-bs-target="#metaAnalysisCollapse" style="cursor: pointer;">
+                <i class="bi bi-grid-3x3"></i> Meta-Analysis: Model Performance Across All Image Types
+                <i class="bi bi-chevron-down float-end"></i>
+            </div>
+            <div id="metaAnalysisCollapse" class="collapse">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <label class="form-label mb-0 me-2"><strong>Select Metric:</strong></label>
+                            <select class="form-select form-select-sm d-inline-block" id="meta-metric-select" onchange="updateMetaMetric()" style="width: auto; min-width: 200px;">
+                                <option value="ssim" selected>SSIM (Structural Similarity)</option>
+                                <option value="ssimulacra2">SSIMULACRA2 (Perceptual Quality)</option>
+                                <option value="lpips">LPIPS (Learned Perceptual)</option>
+                                <option value="psnr">PSNR (Peak Signal-to-Noise)</option>
+                                <option value="butteraugli">Butteraugli (Psychovisual)</option>
+                                <option value="flip">FLIP (Color Difference)</option>
+                                <option value="percentDifferent">% Difference</option>
+                            </select>
+                        </div>
+                        <p class="mb-0 text-muted small"><i class="bi bi-info-circle"></i> Green = best performer per row/overall</p>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-hover" id="meta-analysis-table">
+                            <tbody>
+                                <tr><td class="text-center text-muted">Loading meta-analysis data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Upload & Prompt Section -->
         <div class="row mb-4 mt-4">
             <div class="col-md-6">
@@ -91,6 +125,9 @@
                         <i class="bi bi-upload"></i> Upload Image
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-info small mb-3">
+                            <i class="bi bi-info-circle"></i> <strong>Tip:</strong> For best comparison results, upload images with standard aspect ratios (16:9, 4:3, 1:1) or common dimensions (1024×1024, 1920×1080).
+                        </div>
                         <div class="drop-zone" id="drop-zone">
                             <i class="bi bi-cloud-upload fs-1 text-muted"></i>
                             <p class="mb-2">Drag & drop an image here or click to browse</p>
@@ -177,15 +214,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success text-white">
-                        <i class="bi bi-trophy"></i> Multi-Model Performance Comparison
+                        <i class="bi bi-bar-chart"></i> Detailed Metrics Comparison (Current Image)
                     </div>
                     <div class="card-body">
-                        <div id="best-models" class="mb-3">
-                            <p class="text-muted">Generate images with multiple models to see comparison...</p>
-                        </div>
-                        
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="mb-0">Detailed Metrics Comparison</h5>
+                            <p class="mb-0 text-muted small"><i class="bi bi-hand-index"></i> Click column headers to sort. Green = best, Red = worst.</p>
                             <button class="btn btn-sm btn-outline-success" id="export-table-btn" disabled>
                                 <i class="bi bi-download"></i> Export as CSV
                             </button>
@@ -195,18 +228,17 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Model</th>
-                                        <th>PSNR ↑</th>
-                                        <th>SSIM ↑</th>
-                                        <th>MS-SSIM ↑</th>
-                                        <th>SSIMULACRA2 ↑</th>
-                                        <th>Butteraugli ↓</th>
-                                        <th>FLIP ↓</th>
-                                        <th>LPIPS ↓</th>
-                                        <th>% Diff ↓</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(1)">PSNR ↑</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(2)">SSIM ↑</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(3)">SSIMULACRA2 ↑</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(4)">Butteraugli ↓</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(5)">FLIP ↓</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(6)">LPIPS ↓</th>
+                                        <th style="cursor: pointer;" onclick="sortTable(7)">% Diff ↓</th>
                                     </tr>
                                 </thead>
                                 <tbody id="model-comparison-table">
-                                    <tr><td colspan="9" class="text-center text-muted">No comparison data yet</td></tr>
+                                    <tr><td colspan="8" class="text-center text-muted">No comparison data yet</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -214,9 +246,9 @@
                         <div class="alert alert-info mt-3">
                             <h6><i class="bi bi-info-circle"></i> Metric Interpretation Guide:</h6>
                             <ul class="mb-0 small">
-                                <li><strong>↑ Higher is better:</strong> PSNR, SSIM, MS-SSIM, SSIMULACRA2</li>
+                                <li><strong>↑ Higher is better:</strong> PSNR, SSIM, SSIMULACRA2</li>
                                 <li><strong>↓ Lower is better:</strong> Butteraugli, FLIP, LPIPS, % Difference</li>
-                                <li><strong>Best human perception alignment:</strong> SSIM, MS-SSIM, SSIMULACRA2, LPIPS</li>
+                                <li><strong>Best human perception alignment:</strong> SSIM, SSIMULACRA2, LPIPS</li>
                                 <li><strong>SSIMULACRA2:</strong> Considered state-of-the-art for perceptual quality assessment</li>
                                 <li><strong>LPIPS:</strong> Uses deep learning features, excellent for perceptual similarity</li>
                             </ul>
@@ -290,12 +322,6 @@
                                 <div class="alert alert-info metric-badge mb-0">
                                     <strong>SSIM:</strong> <span id="metric-ssim">-</span>
                                     <div class="form-text" style="font-size: 0.7rem;">Structural Similarity (0-1, higher better)</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="alert alert-info metric-badge mb-0">
-                                    <strong>MS-SSIM:</strong> <span id="metric-msssim">-</span>
-                                    <div class="form-text" style="font-size: 0.7rem;">Multi-Scale SSIM (0-1, higher better)</div>
                                 </div>
                             </div>
                             <div class="col-md-3">

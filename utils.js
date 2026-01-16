@@ -71,7 +71,6 @@ export const loadImageFromUrl = url => new Promise((resolve, reject) => {
 export const METRIC_INFO = {
     'PSNR': 'Peak Signal-to-Noise Ratio - Traditional quality metric, higher is better (>30 dB is good)',
     'SSIM': 'Structural Similarity Index - Measures structural similarity (0-1, >0.95 is excellent)',
-    'MS-SSIM': 'Multi-Scale SSIM - Better than SSIM for varying resolutions (0-1, >0.95 is excellent)',
     'SSIMULACRA2': 'State-of-the-art perceptual quality metric (0-100, >90 is excellent)',
     'Butteraugli': 'Google\'s perceptual difference metric (0-10, <1.0 is excellent)',
     'FLIP': 'Feature-based Luminance and color Image Perceptual metric (lower is better)',
@@ -277,18 +276,28 @@ export const generateModelImagesHTML = (model, canvasIds, modelLabel, width, hei
     '</div>';
 };
 
-export const generateComparisonTableRowHTML = (model, metrics, displayNameFn) => {
+export const generateComparisonTableRowHTML = (model, metrics, displayNameFn, allMetrics) => {
     const modelLabel = displayNameFn(model);
+    const getColor = (value, metricKey, better) => {
+        if (!allMetrics || Object.keys(allMetrics).length < 2) return '';
+        const values = Object.values(allMetrics).map(m => parseFloat(m[metricKey]));
+        const max = Math.max(...values), min = Math.min(...values);
+        const numValue = parseFloat(value);
+        const isBest = (better === 'higher' && numValue === max) || (better === 'lower' && numValue === min);
+        const isWorst = (better === 'higher' && numValue === min) || (better === 'lower' && numValue === max);
+        if (isBest) return 'background-color: #198754 !important; color: #fff !important; font-weight: bold;';
+        if (isWorst) return 'background-color: #dc3545 !important; color: #fff !important;';
+        return '';
+    };
     return '<tr>' +
         '<td><strong>' + modelLabel + '</strong></td>' +
-        '<td>' + metrics.psnr + ' dB</td>' +
-        '<td>' + metrics.ssim + '</td>' +
-        '<td>' + metrics.msssim + '</td>' +
-        '<td>' + metrics.ssimulacra2 + '</td>' +
-        '<td>' + metrics.butteraugli + '</td>' +
-        '<td>' + metrics.flip + '</td>' +
-        '<td>' + metrics.lpips + '</td>' +
-        '<td>' + metrics.percentDifferent + '%</td>' +
+        '<td style="' + getColor(metrics.psnr, 'psnr', 'higher') + '">' + metrics.psnr + ' dB</td>' +
+        '<td style="' + getColor(metrics.ssim, 'ssim', 'higher') + '">' + metrics.ssim + '</td>' +
+        '<td style="' + getColor(metrics.ssimulacra2, 'ssimulacra2', 'higher') + '">' + metrics.ssimulacra2 + '</td>' +
+        '<td style="' + getColor(metrics.butteraugli, 'butteraugli', 'lower') + '">' + metrics.butteraugli + '</td>' +
+        '<td style="' + getColor(metrics.flip, 'flip', 'lower') + '">' + metrics.flip + '</td>' +
+        '<td style="' + getColor(metrics.lpips, 'lpips', 'lower') + '">' + metrics.lpips + '</td>' +
+        '<td style="' + getColor(metrics.percentDifferent, 'percentDifferent', 'lower') + '">' + metrics.percentDifferent + '%</td>' +
     '</tr>';
 };
 
@@ -360,7 +369,51 @@ export const calculateSSIM = (data1, data2, width, height) => {
     ));
 };
 
-export const calculateMSSSIM = calculateSSIM; // Alias for single-scale implementation
+export const calculateMSSSIM = (data1, data2, width, height) => {
+    // Multi-Scale SSIM: Calculate SSIM at multiple scales and combine
+    const scales = [1, 0.5, 0.25]; // 3 scales: original, half, quarter
+    const weights = [0.0448, 0.2856, 0.6696]; // Standard MS-SSIM weights
+    let msssim = 1.0;
+    
+    for (let s = 0; s < scales.length; s++) {
+        const scale = scales[s];
+        const scaledWidth = Math.max(8, Math.floor(width * scale));
+        const scaledHeight = Math.max(8, Math.floor(height * scale));
+        
+        // Downsample if needed
+        let scaledData1 = data1, scaledData2 = data2;
+        if (scale < 1) {
+            scaledData1 = resizeImageData(data1, width, height, scaledWidth, scaledHeight);
+            scaledData2 = resizeImageData(data2, width, height, scaledWidth, scaledHeight);
+        }
+        
+        const ssim = calculateSSIM(scaledData1, scaledData2, scaledWidth, scaledHeight);
+        msssim *= Math.pow(Math.max(0.0001, ssim), weights[s]);
+    }
+    
+    return Math.max(0, Math.min(1, msssim));
+};
+
+const resizeImageData = (imageData, oldW, oldH, newW, newH) => {
+    const newData = new ImageData(newW, newH);
+    const xRatio = oldW / newW, yRatio = oldH / newH;
+    
+    for (let y = 0; y < newH; y++) {
+        for (let x = 0; x < newW; x++) {
+            const srcX = Math.floor(x * xRatio);
+            const srcY = Math.floor(y * yRatio);
+            const srcIdx = (srcY * oldW + srcX) * 4;
+            const dstIdx = (y * newW + x) * 4;
+            
+            newData.data[dstIdx] = imageData.data[srcIdx];
+            newData.data[dstIdx + 1] = imageData.data[srcIdx + 1];
+            newData.data[dstIdx + 2] = imageData.data[srcIdx + 2];
+            newData.data[dstIdx + 3] = imageData.data[srcIdx + 3];
+        }
+    }
+    
+    return newData;
+};
 
 export const calculateButteraugli = (data1, data2, width, height) => {
     let sumDiff = 0;
@@ -461,7 +514,6 @@ export const compareImages = (img1, img2, options = {}) => {
     
     // Calculate advanced metrics
     const ssim = calculateSSIM(data1, data2, width, height);
-    const msssim = calculateMSSSIM(data1, data2, width, height);
     const butteraugli = calculateButteraugli(data1, data2, width, height);
     const flip = calculateFLIP(data1, data2, width, height);
     const lpips = calculateLPIPS(data1, data2, width, height);
@@ -479,7 +531,6 @@ export const compareImages = (img1, img2, options = {}) => {
             mse: mse.toFixed(2),
             psnr: psnr === Infinity ? '∞' : psnr.toFixed(2),
             ssim: ssim.toFixed(4),
-            msssim: msssim.toFixed(4),
             butteraugli: butteraugli.toFixed(4),
             flip: flip,
             lpips: lpips,

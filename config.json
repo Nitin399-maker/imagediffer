@@ -1,144 +1,70 @@
 [
 {
-  "timestamp": "2026-01-09T03:12:15.291Z",
+  "timestamp": "2026-01-16T03:11:17.969Z",
   "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
   "threshold": 10,
   "images": {
     "original": {
-      "path": "images/original_1767928334073.webp",
-      "name": "human-portrait-nature-focus.jpg"
+      "path": "images/original_1768533077969.webp",
+      "name": "Human Portrait.jpg"
     },
     "generated": {
-      "google/gemini-2.5-flash-image-preview": {
-        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767928334107.webmp",
-        "modelDisplayName": "gemini-2.5-flash-image-preview"
-      },
       "google/gemini-3-pro-image-preview": {
-        "path": "images/generated_google_gemini_3_pro_image_preview_1767928334126.webp",
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768533077969.webp",
         "modelDisplayName": "gemini-3-pro-image-preview"
       },
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_1768533077969.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
       "gpt-image-1.5": {
-        "path": "images/generated_gpt_image_1_5_1767928334142.webp",
+        "path": "images/generated_gpt_image_1_5_1768533077969.webp",
         "modelDisplayName": "gpt-image-1.5"
       },
       "chatgpt-image-latest": {
-        "path": "images/generated_chatgpt_image_latest_1767928334209.webp",
+        "path": "images/generated_chatgpt_image_latest_1768533077969.webp",
         "modelDisplayName": "chatgpt-image-latest"
       },
       "gpt-image-1": {
-        "path": "images/generated_gpt_image_1_1767928334237.webp",
+        "path": "images/generated_gpt_image_1_1768533077969.webp",
         "modelDisplayName": "gpt-image-1"
       },
       "gpt-image-1-mini": {
-        "path": "images/generated_gpt_image_1_mini_1767928334262.webp",
+        "path": "images/generated_gpt_image_1_mini_1768533077969.webp",
         "modelDisplayName": "gpt-image-1-mini"
       }
     }
   },
   "models": [
-    "google/gemini-2.5-flash-image-preview",
     "google/gemini-3-pro-image-preview",
+    "google/gemini-2.5-flash-image",
     "gpt-image-1.5",
     "chatgpt-image-latest",
     "gpt-image-1",
     "gpt-image-1-mini"
   ],
   "pixelDifferenceAnalysis": {
-    "google/gemini-2.5-flash-image-preview": {
-      "modelDisplayName": "gemini-2.5-flash-image-preview",
-      "dimensions": {
-        "width": 1248,
-        "height": 832
-      },
-      "metrics": {
-        "totalPixels": 1038336,
-        "differentPixels": 166331,
-        "percentDifferent": "16.02",
-        "maeR": "2.64",
-        "maeG": "2.46",
-        "maeB": "2.64",
-        "mse": "19.09",
-        "psnr": "35.32",
-        "ssim": "0.9957",
-        "msssim": "0.9957",
-        "butteraugli": "0.0128",
-        "flip": "0.0196",
-        "lpips": "0.0113",
-        "ssimulacra2": "99.57"
-      },
-      "errorDistribution": [
-        {
-          "min": 0,
-          "max": 0,
-          "label": "0 (Exact)",
-          "color": "#28a745",
-          "count": 15698
-        },
-        {
-          "min": 1,
-          "max": 5,
-          "label": "1-5",
-          "color": "#20c997",
-          "count": 556412
-        },
-        {
-          "min": 6,
-          "max": 15,
-          "label": "6-15",
-          "color": "#ffc107",
-          "count": 365864
-        },
-        {
-          "min": 16,
-          "max": 30,
-          "label": "16-30",
-          "color": "#fd7e14",
-          "count": 64424
-        },
-        {
-          "min": 31,
-          "max": 60,
-          "label": "31-60",
-          "color": "#dc3545",
-          "count": 29623
-        },
-        {
-          "min": 61,
-          "max": 120,
-          "label": "61-120",
-          "color": "#c82333",
-          "count": 5994
-        },
-        {
-          "min": 121,
-          "max": 255,
-          "label": "121-255",
-          "color": "#6c757d",
-          "count": 311
-        }
-      ]
-    },
     "google/gemini-3-pro-image-preview": {
       "modelDisplayName": "gemini-3-pro-image-preview",
       "dimensions": {
-        "width": 1264,
-        "height": 848
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 1071872,
-        "differentPixels": 331978,
-        "percentDifferent": "30.97",
-        "maeR": "3.60",
-        "maeG": "3.61",
-        "maeB": "3.13",
-        "mse": "25.37",
-        "psnr": "34.09",
-        "ssim": "0.9941",
-        "msssim": "0.9941",
-        "butteraugli": "0.0199",
-        "flip": "0.0255",
-        "lpips": "0.0149",
-        "ssimulacra2": "99.41"
+        "totalPixels": 1048576,
+        "differentPixels": 205554,
+        "percentDifferent": "19.60",
+        "maeR": "2.54",
+        "maeG": "1.99",
+        "maeB": "2.99",
+        "mse": "11.37",
+        "psnr": "37.57",
+        "ssim": "0.9986",
+        "msssim": "0.9986",
+        "butteraugli": "0.0098",
+        "flip": "0.0188",
+        "lpips": "0.0106",
+        "ssimulacra2": "99.86"
       },
       "errorDistribution": [
         {
@@ -146,73 +72,147 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 4576
+          "count": 19150
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 310658
+          "count": 420039
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 600205
+          "count": 531294
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 112324
+          "count": 69263
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 36349
+          "count": 8485
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 7487
+          "count": 345
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 269
+          "count": 0
+        }
+      ]
+    },
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 428638,
+        "percentDifferent": "40.88",
+        "maeR": "14.02",
+        "maeG": "12.92",
+        "maeB": "11.82",
+        "mse": "655.50",
+        "psnr": "19.97",
+        "ssim": "0.8471",
+        "msssim": "0.8471",
+        "butteraugli": "0.2167",
+        "flip": "0.0901",
+        "lpips": "0.0532",
+        "ssimulacra2": "84.71"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 11260
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 352779
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 345882
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 92271
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 49434
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 47726
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 137081
         }
       ]
     },
     "gpt-image-1.5": {
       "modelDisplayName": "gpt-image-1.5",
       "dimensions": {
-        "width": 1536,
+        "width": 1024,
         "height": 1024
       },
       "metrics": {
-        "totalPixels": 1572864,
-        "differentPixels": 1385844,
-        "percentDifferent": "88.11",
-        "maeR": "8.73",
-        "maeG": "7.89",
-        "maeB": "9.92",
-        "mse": "129.83",
-        "psnr": "27.00",
-        "ssim": "0.9762",
-        "msssim": "0.9762",
-        "butteraugli": "0.0676",
-        "flip": "0.0640",
-        "lpips": "0.0364",
-        "ssimulacra2": "97.62"
+        "totalPixels": 1048576,
+        "differentPixels": 1024174,
+        "percentDifferent": "97.67",
+        "maeR": "14.64",
+        "maeG": "15.86",
+        "maeB": "18.80",
+        "mse": "425.69",
+        "psnr": "21.84",
+        "ssim": "0.9342",
+        "msssim": "0.9342",
+        "butteraugli": "0.1768",
+        "flip": "0.1183",
+        "lpips": "0.0659",
+        "ssimulacra2": "93.42"
       },
       "errorDistribution": [
         {
@@ -220,73 +220,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 112
+          "count": 50
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 28114
+          "count": 5047
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 469254
+          "count": 67612
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 590017
+          "count": 268952
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 419996
+          "count": 414998
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 58252
+          "count": 258214
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 6419
+          "count": 32117
         }
       ]
     },
     "chatgpt-image-latest": {
       "modelDisplayName": "chatgpt-image-latest",
       "dimensions": {
-        "width": 1536,
+        "width": 1024,
         "height": 1024
       },
       "metrics": {
-        "totalPixels": 1572864,
-        "differentPixels": 976693,
-        "percentDifferent": "62.10",
-        "maeR": "6.41",
-        "maeG": "5.23",
-        "maeB": "5.95",
-        "mse": "67.15",
-        "psnr": "29.86",
-        "ssim": "0.9837",
-        "msssim": "0.9837",
-        "butteraugli": "0.0410",
-        "flip": "0.0429",
-        "lpips": "0.0249",
-        "ssimulacra2": "98.37"
+        "totalPixels": 1048576,
+        "differentPixels": 940681,
+        "percentDifferent": "89.71",
+        "maeR": "20.52",
+        "maeG": "18.97",
+        "maeB": "16.93",
+        "mse": "632.37",
+        "psnr": "20.12",
+        "ssim": "0.8976",
+        "msssim": "0.8976",
+        "butteraugli": "0.2546",
+        "flip": "0.1322",
+        "lpips": "0.0780",
+        "ssimulacra2": "89.76"
       },
       "errorDistribution": [
         {
@@ -294,73 +294,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 1371
+          "count": 227
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 169679
+          "count": 30653
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 762758
+          "count": 164431
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 422357
+          "count": 210082
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 183961
+          "count": 237620
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 29515
+          "count": 333646
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 3132
+          "count": 65673
         }
       ]
     },
     "gpt-image-1": {
       "modelDisplayName": "gpt-image-1",
       "dimensions": {
-        "width": 1536,
+        "width": 1024,
         "height": 1024
       },
       "metrics": {
-        "totalPixels": 1572864,
-        "differentPixels": 1470525,
-        "percentDifferent": "93.49",
-        "maeR": "16.78",
-        "maeG": "14.57",
-        "maeB": "15.60",
-        "mse": "538.46",
-        "psnr": "20.82",
-        "ssim": "0.8800",
-        "msssim": "0.8800",
-        "butteraugli": "0.1886",
-        "flip": "0.1130",
-        "lpips": "0.0657",
-        "ssimulacra2": "88.00"
+        "totalPixels": 1048576,
+        "differentPixels": 956349,
+        "percentDifferent": "91.20",
+        "maeR": "19.58",
+        "maeG": "16.51",
+        "maeB": "15.49",
+        "mse": "572.74",
+        "psnr": "20.55",
+        "ssim": "0.8948",
+        "msssim": "0.8948",
+        "butteraugli": "0.2183",
+        "flip": "0.1243",
+        "lpips": "0.0737",
+        "ssimulacra2": "89.48"
       },
       "errorDistribution": [
         {
@@ -368,73 +368,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 1198
+          "count": 4142
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 31469
+          "count": 34882
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 186848
+          "count": 111524
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 451361
+          "count": 218832
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 595228
+          "count": 361417
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 204887
+          "count": 252239
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 86519
+          "count": 58014
         }
       ]
     },
     "gpt-image-1-mini": {
       "modelDisplayName": "gpt-image-1-mini",
       "dimensions": {
-        "width": 1536,
+        "width": 1024,
         "height": 1024
       },
       "metrics": {
-        "totalPixels": 1572864,
-        "differentPixels": 1443524,
-        "percentDifferent": "91.78",
-        "maeR": "24.00",
-        "maeG": "20.33",
-        "maeB": "20.97",
-        "mse": "1287.47",
-        "psnr": "17.03",
-        "ssim": "0.6881",
-        "msssim": "0.6881",
-        "butteraugli": "0.3584",
-        "flip": "0.1575",
-        "lpips": "0.0923",
-        "ssimulacra2": "68.81"
+        "totalPixels": 1048576,
+        "differentPixels": 882488,
+        "percentDifferent": "84.16",
+        "maeR": "23.32",
+        "maeG": "19.50",
+        "maeB": "19.42",
+        "mse": "1108.52",
+        "psnr": "17.68",
+        "ssim": "0.7695",
+        "msssim": "0.7695",
+        "butteraugli": "0.3317",
+        "flip": "0.1501",
+        "lpips": "0.0885",
+        "ssimulacra2": "76.95"
       },
       "errorDistribution": [
         {
@@ -442,203 +442,52 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 187
+          "count": 3096
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 28940
+          "count": 58994
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 238546
+          "count": 187375
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 444685
+          "count": 203434
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 401402
+          "count": 263687
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 217228
+          "count": 181497
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 167933
+          "count": 114144
         }
       ]
     }
-  },
-  "multiModelComparison": {
-    "modelsCompared": [
-      {
-        "id": "google/gemini-2.5-flash-image-preview",
-        "displayName": "gemini-2.5-flash-image-preview"
-      },
-      {
-        "id": "google/gemini-3-pro-image-preview",
-        "displayName": "gemini-3-pro-image-preview"
-      },
-      {
-        "id": "gpt-image-1.5",
-        "displayName": "gpt-image-1.5"
-      },
-      {
-        "id": "chatgpt-image-latest",
-        "displayName": "chatgpt-image-latest"
-      },
-      {
-        "id": "gpt-image-1",
-        "displayName": "gpt-image-1"
-      },
-      {
-        "id": "gpt-image-1-mini",
-        "displayName": "gpt-image-1-mini"
-      }
-    ],
-    "bestPerformers": {},
-    "allMetrics": [
-      {
-        "model": "gemini-2.5-flash-image-preview",
-        "modelId": "google/gemini-2.5-flash-image-preview",
-        "metrics": {
-          "totalPixels": 1038336,
-          "differentPixels": 166331,
-          "percentDifferent": "16.02",
-          "maeR": "2.64",
-          "maeG": "2.46",
-          "maeB": "2.64",
-          "mse": "19.09",
-          "psnr": "35.32",
-          "ssim": "0.9957",
-          "msssim": "0.9957",
-          "butteraugli": "0.0128",
-          "flip": "0.0196",
-          "lpips": "0.0113",
-          "ssimulacra2": "99.57"
-        }
-      },
-      {
-        "model": "gemini-3-pro-image-preview",
-        "modelId": "google/gemini-3-pro-image-preview",
-        "metrics": {
-          "totalPixels": 1071872,
-          "differentPixels": 331978,
-          "percentDifferent": "30.97",
-          "maeR": "3.60",
-          "maeG": "3.61",
-          "maeB": "3.13",
-          "mse": "25.37",
-          "psnr": "34.09",
-          "ssim": "0.9941",
-          "msssim": "0.9941",
-          "butteraugli": "0.0199",
-          "flip": "0.0255",
-          "lpips": "0.0149",
-          "ssimulacra2": "99.41"
-        }
-      },
-      {
-        "model": "gpt-image-1.5",
-        "modelId": "gpt-image-1.5",
-        "metrics": {
-          "totalPixels": 1572864,
-          "differentPixels": 1385844,
-          "percentDifferent": "88.11",
-          "maeR": "8.73",
-          "maeG": "7.89",
-          "maeB": "9.92",
-          "mse": "129.83",
-          "psnr": "27.00",
-          "ssim": "0.9762",
-          "msssim": "0.9762",
-          "butteraugli": "0.0676",
-          "flip": "0.0640",
-          "lpips": "0.0364",
-          "ssimulacra2": "97.62"
-        }
-      },
-      {
-        "model": "chatgpt-image-latest",
-        "modelId": "chatgpt-image-latest",
-        "metrics": {
-          "totalPixels": 1572864,
-          "differentPixels": 976693,
-          "percentDifferent": "62.10",
-          "maeR": "6.41",
-          "maeG": "5.23",
-          "maeB": "5.95",
-          "mse": "67.15",
-          "psnr": "29.86",
-          "ssim": "0.9837",
-          "msssim": "0.9837",
-          "butteraugli": "0.0410",
-          "flip": "0.0429",
-          "lpips": "0.0249",
-          "ssimulacra2": "98.37"
-        }
-      },
-      {
-        "model": "gpt-image-1",
-        "modelId": "gpt-image-1",
-        "metrics": {
-          "totalPixels": 1572864,
-          "differentPixels": 1470525,
-          "percentDifferent": "93.49",
-          "maeR": "16.78",
-          "maeG": "14.57",
-          "maeB": "15.60",
-          "mse": "538.46",
-          "psnr": "20.82",
-          "ssim": "0.8800",
-          "msssim": "0.8800",
-          "butteraugli": "0.1886",
-          "flip": "0.1130",
-          "lpips": "0.0657",
-          "ssimulacra2": "88.00"
-        }
-      },
-      {
-        "model": "gpt-image-1-mini",
-        "modelId": "gpt-image-1-mini",
-        "metrics": {
-          "totalPixels": 1572864,
-          "differentPixels": 1443524,
-          "percentDifferent": "91.78",
-          "maeR": "24.00",
-          "maeG": "20.33",
-          "maeB": "20.97",
-          "mse": "1287.47",
-          "psnr": "17.03",
-          "ssim": "0.6881",
-          "msssim": "0.6881",
-          "butteraugli": "0.3584",
-          "flip": "0.1575",
-          "lpips": "0.0923",
-          "ssimulacra2": "68.81"
-        }
-      }
-    ]
   }
 },
 {
@@ -648,12 +497,12 @@
   "images": {
     "original": {
       "path": "images/original_1767928512971.webp",
-      "name": "OET.jpg"
+      "name": "Human.jpg"
     },
     "generated": {
-      "google/gemini-2.5-flash-image-preview": {
+      "google/gemini-2.5-flash-image": {
         "path": "images/generated_google_gemini_2_5_flash_image_preview_1767928512984.webp",
-        "modelDisplayName": "gemini-2.5-flash-image-preview"
+        "modelDisplayName": "gemini-2.5-flash-image"
       },
       "google/gemini-3-pro-image-preview": {
         "path": "images/generated_google_gemini_3_pro_image_preview_1767928513021.webp",
@@ -678,7 +527,7 @@
     }
   },
   "models": [
-    "google/gemini-2.5-flash-image-preview",
+    "google/gemini-2.5-flash-image",
     "google/gemini-3-pro-image-preview",
     "gpt-image-1.5",
     "chatgpt-image-latest",
@@ -686,8 +535,8 @@
     "gpt-image-1-mini"
   ],
   "pixelDifferenceAnalysis": {
-    "google/gemini-2.5-flash-image-preview": {
-      "modelDisplayName": "gemini-2.5-flash-image-preview",
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
       "dimensions": {
         "width": 1024,
         "height": 1024
@@ -1134,8 +983,8 @@
   "multiModelComparison": {
     "modelsCompared": [
       {
-        "id": "google/gemini-2.5-flash-image-preview",
-        "displayName": "gemini-2.5-flash-image-preview"
+        "id": "google/gemini-2.5-flash-image",
+        "displayName": "gemini-2.5-flash-image"
       },
       {
         "id": "google/gemini-3-pro-image-preview",
@@ -1161,8 +1010,8 @@
     "bestPerformers": {},
     "allMetrics": [
       {
-        "model": "gemini-2.5-flash-image-preview",
-        "modelId": "google/gemini-2.5-flash-image-preview",
+        "model": "gemini-2.5-flash-image",
+        "modelId": "google/gemini-2.5-flash-image",
         "metrics": {
           "totalPixels": 1048576,
           "differentPixels": 517073,
@@ -1284,43 +1133,43 @@
   }
 },
 {
-  "timestamp": "2026-01-09T03:23:31.326Z",
+  "timestamp": "2026-01-13T05:10:27.329Z",
   "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
   "threshold": 10,
   "images": {
     "original": {
-      "path": "images/original_1767929009952.webp",
-      "name": "pexels-chevanon-1108099.jpg"
+      "path": "images/original_1768281027329.webp",
+      "name": "Landscape.png"
     },
     "generated": {
-      "google/gemini-2.5-flash-image-preview": {
-        "path": "images/generated_google_gemini_2_5_flash_image_preview_1767929010029.webp",
-        "modelDisplayName": "gemini-2.5-flash-image-preview"
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1768281027329.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
       },
       "google/gemini-3-pro-image-preview": {
-        "path": "images/generated_google_gemini_3_pro_image_preview_1767929010071.webp",
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768281027329.webp",
         "modelDisplayName": "gemini-3-pro-image-preview"
       },
       "gpt-image-1.5": {
-        "path": "images/generated_gpt_image_1_5_1767929010099.webp",
+        "path": "images/generated_gpt_image_1_5_1768281027329.webp",
         "modelDisplayName": "gpt-image-1.5"
       },
       "chatgpt-image-latest": {
-        "path": "images/generated_chatgpt_image_latest_1767929010149.webp",
+        "path": "images/generated_chatgpt_image_latest_1768281027329.webp",
         "modelDisplayName": "chatgpt-image-latest"
       },
       "gpt-image-1": {
-        "path": "images/generated_gpt_image_1_1767929010227.webp",
+        "path": "images/generated_gpt_image_1_1768281027329.webp",
         "modelDisplayName": "gpt-image-1"
       },
       "gpt-image-1-mini": {
-        "path": "images/generated_gpt_image_1_mini_1767929010280.webp",
+        "path": "images/generated_gpt_image_1_mini_1768281027329.webp",
         "modelDisplayName": "gpt-image-1-mini"
       }
     }
   },
   "models": [
-    "google/gemini-2.5-flash-image-preview",
+    "google/gemini-2.5-flash-image",
     "google/gemini-3-pro-image-preview",
     "gpt-image-1.5",
     "chatgpt-image-latest",
@@ -1328,27 +1177,27 @@
     "gpt-image-1-mini"
   ],
   "pixelDifferenceAnalysis": {
-    "google/gemini-2.5-flash-image-preview": {
-      "modelDisplayName": "gemini-2.5-flash-image-preview",
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
       "dimensions": {
-        "width": 5184,
-        "height": 3888
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 20155392,
-        "differentPixels": 15625192,
-        "percentDifferent": "77.52",
-        "maeR": "10.62",
-        "maeG": "9.50",
-        "maeB": "8.07",
-        "mse": "205.00",
-        "psnr": "25.01",
-        "ssim": "0.8900",
-        "msssim": "0.8900",
-        "butteraugli": "0.0876",
-        "flip": "0.0703",
-        "lpips": "0.0417",
-        "ssimulacra2": "89.00"
+        "totalPixels": 1048576,
+        "differentPixels": 660074,
+        "percentDifferent": "62.95",
+        "maeR": "13.73",
+        "maeG": "11.73",
+        "maeB": "9.18",
+        "mse": "520.61",
+        "psnr": "20.97",
+        "ssim": "0.9621",
+        "msssim": "0.9621",
+        "butteraugli": "0.1734",
+        "flip": "0.0828",
+        "lpips": "0.0500",
+        "ssimulacra2": "96.21"
       },
       "errorDistribution": [
         {
@@ -1356,73 +1205,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 5894
+          "count": 1800
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 1223350
+          "count": 155077
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 6421151
+          "count": 398388
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 6424882
+          "count": 200484
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 4195855
+          "count": 134515
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 1545638
+          "count": 94220
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 324716
+          "count": 47932
         }
       ]
     },
     "google/gemini-3-pro-image-preview": {
       "modelDisplayName": "gemini-3-pro-image-preview",
       "dimensions": {
-        "width": 5184,
-        "height": 3888
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 20155392,
-        "differentPixels": 18384662,
-        "percentDifferent": "91.21",
-        "maeR": "8.19",
-        "maeG": "8.36",
-        "maeB": "5.01",
-        "mse": "91.34",
-        "psnr": "28.52",
-        "ssim": "0.9712",
-        "msssim": "0.9712",
-        "butteraugli": "0.0551",
-        "flip": "0.0553",
-        "lpips": "0.0330",
-        "ssimulacra2": "97.12"
+        "totalPixels": 1048576,
+        "differentPixels": 336674,
+        "percentDifferent": "32.11",
+        "maeR": "3.63",
+        "maeG": "3.31",
+        "maeB": "3.58",
+        "mse": "29.69",
+        "psnr": "33.40",
+        "ssim": "0.9982",
+        "msssim": "0.9982",
+        "butteraugli": "0.0209",
+        "flip": "0.0257",
+        "lpips": "0.0148",
+        "ssimulacra2": "99.82"
       },
       "errorDistribution": [
         {
@@ -1430,73 +1279,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 1260
+          "count": 19656
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 194122
+          "count": 398249
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 7818391
+          "count": 428433
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 8841210
+          "count": 146693
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 2754143
+          "count": 46598
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 513038
+          "count": 8210
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 33046
+          "count": 734
         }
       ]
     },
     "gpt-image-1.5": {
       "modelDisplayName": "gpt-image-1.5",
       "dimensions": {
-        "width": 5184,
-        "height": 3888
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 20155392,
-        "differentPixels": 16970369,
-        "percentDifferent": "84.20",
-        "maeR": "18.46",
-        "maeG": "12.62",
-        "maeB": "14.50",
-        "mse": "560.14",
-        "psnr": "20.65",
-        "ssim": "0.6956",
-        "msssim": "0.6956",
-        "butteraugli": "0.1660",
-        "flip": "0.1151",
-        "lpips": "0.0687",
-        "ssimulacra2": "69.56"
+        "totalPixels": 1048576,
+        "differentPixels": 878267,
+        "percentDifferent": "83.76",
+        "maeR": "21.87",
+        "maeG": "16.76",
+        "maeB": "13.85",
+        "mse": "909.65",
+        "psnr": "18.54",
+        "ssim": "0.9406",
+        "msssim": "0.9406",
+        "butteraugli": "0.2732",
+        "flip": "0.1303",
+        "lpips": "0.0791",
+        "ssimulacra2": "94.06"
       },
       "errorDistribution": [
         {
@@ -1504,73 +1353,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 772
+          "count": 397
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 496454
+          "count": 47296
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 5572693
+          "count": 246504
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 4560933
+          "count": 236550
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 4188128
+          "count": 243183
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 3901211
+          "count": 173356
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 1335553
+          "count": 76036
         }
       ]
     },
     "chatgpt-image-latest": {
       "modelDisplayName": "chatgpt-image-latest",
       "dimensions": {
-        "width": 5184,
-        "height": 3888
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 20155392,
-        "differentPixels": 17349821,
-        "percentDifferent": "86.08",
-        "maeR": "18.48",
-        "maeG": "12.65",
-        "maeB": "13.89",
-        "mse": "539.06",
-        "psnr": "20.81",
-        "ssim": "0.7272",
-        "msssim": "0.7272",
-        "butteraugli": "0.1606",
-        "flip": "0.1128",
-        "lpips": "0.0678",
-        "ssimulacra2": "72.72"
+        "totalPixels": 1048576,
+        "differentPixels": 953007,
+        "percentDifferent": "90.89",
+        "maeR": "24.23",
+        "maeG": "20.91",
+        "maeB": "16.38",
+        "mse": "1208.98",
+        "psnr": "17.31",
+        "ssim": "0.9136",
+        "msssim": "0.9136",
+        "butteraugli": "0.3515",
+        "flip": "0.1489",
+        "lpips": "0.0896",
+        "ssimulacra2": "91.36"
       },
       "errorDistribution": [
         {
@@ -1578,73 +1427,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 5691
+          "count": 210
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 794193
+          "count": 14442
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 4092469
+          "count": 223871
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 5106994
+          "count": 265466
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 5529912
+          "count": 217152
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 3256592
+          "count": 194418
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 1273648
+          "count": 95572
         }
       ]
     },
     "gpt-image-1": {
       "modelDisplayName": "gpt-image-1",
       "dimensions": {
-        "width": 5184,
-        "height": 3888
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 20155392,
-        "differentPixels": 20134364,
-        "percentDifferent": "99.90",
-        "maeR": "21.54",
-        "maeG": "18.67",
-        "maeB": "22.02",
-        "mse": "835.61",
-        "psnr": "18.91",
-        "ssim": "0.6851",
-        "msssim": "0.6851",
-        "butteraugli": "0.2129",
-        "flip": "0.1569",
-        "lpips": "0.0902",
-        "ssimulacra2": "68.51"
+        "totalPixels": 1048576,
+        "differentPixels": 1000615,
+        "percentDifferent": "95.43",
+        "maeR": "22.32",
+        "maeG": "22.86",
+        "maeB": "20.72",
+        "mse": "1149.92",
+        "psnr": "17.52",
+        "ssim": "0.9251",
+        "msssim": "0.9251",
+        "butteraugli": "0.3476",
+        "flip": "0.1590",
+        "lpips": "0.0921",
+        "ssimulacra2": "92.51"
       },
       "errorDistribution": [
         {
@@ -1652,73 +1501,73 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 10
+          "count": 174
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 2961
+          "count": 11175
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 96159
+          "count": 79217
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 3360993
+          "count": 203673
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 10162944
+          "count": 388245
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 4346960
+          "count": 249987
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 1980560
+          "count": 86555
         }
       ]
     },
     "gpt-image-1-mini": {
       "modelDisplayName": "gpt-image-1-mini",
       "dimensions": {
-        "width": 5184,
-        "height": 3888
+        "width": 1024,
+        "height": 1024
       },
       "metrics": {
-        "totalPixels": 20155392,
-        "differentPixels": 18554819,
-        "percentDifferent": "92.06",
-        "maeR": "22.74",
-        "maeG": "17.32",
-        "maeB": "20.24",
-        "mse": "900.23",
-        "psnr": "18.59",
-        "ssim": "0.5051",
-        "msssim": "0.5051",
-        "butteraugli": "0.2424",
-        "flip": "0.1518",
-        "lpips": "0.0891",
-        "ssimulacra2": "50.51"
+        "totalPixels": 1048576,
+        "differentPixels": 890287,
+        "percentDifferent": "84.90",
+        "maeR": "28.98",
+        "maeG": "24.75",
+        "maeB": "24.36",
+        "mse": "1868.92",
+        "psnr": "15.41",
+        "ssim": "0.8777",
+        "msssim": "0.8777",
+        "butteraugli": "0.4702",
+        "flip": "0.1909",
+        "lpips": "0.1121",
+        "ssimulacra2": "87.77"
       },
       "errorDistribution": [
         {
@@ -1726,203 +1575,3489 @@
           "max": 0,
           "label": "0 (Exact)",
           "color": "#28a745",
-          "count": 298
+          "count": 215
         },
         {
           "min": 1,
           "max": 5,
           "label": "1-5",
           "color": "#20c997",
-          "count": 239754
+          "count": 40154
         },
         {
           "min": 6,
           "max": 15,
           "label": "6-15",
           "color": "#ffc107",
-          "count": 3142119
+          "count": 218217
         },
         {
           "min": 16,
           "max": 30,
           "label": "16-30",
           "color": "#fd7e14",
-          "count": 4744599
+          "count": 167694
         },
         {
           "min": 31,
           "max": 60,
           "label": "31-60",
           "color": "#dc3545",
-          "count": 4752285
+          "count": 174334
         },
         {
           "min": 61,
           "max": 120,
           "label": "61-120",
           "color": "#c82333",
-          "count": 4703832
+          "count": 237511
         },
         {
           "min": 121,
           "max": 255,
           "label": "121-255",
           "color": "#6c757d",
-          "count": 2308060
+          "count": 155628
         }
       ]
     }
+  }
+},
+{
+  "timestamp": "2026-01-13T05:21:41.722Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768281701722.webp",
+      "name": "Cartoon.png"
+    },
+    "generated": {
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1768281701722.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768281701722.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768281701722.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768281701722.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768281701722.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768281701722.webp",
+        "modelDisplayName": "gpt-image-1-mini"
+      }
+    }
   },
-  "multiModelComparison": {
-    "modelsCompared": [
-      {
-        "id": "google/gemini-2.5-flash-image-preview",
-        "displayName": "gemini-2.5-flash-image-preview"
+  "models": [
+    "google/gemini-2.5-flash-image",
+    "google/gemini-3-pro-image-preview",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1376,
+        "height": 768
       },
-      {
-        "id": "google/gemini-3-pro-image-preview",
-        "displayName": "gemini-3-pro-image-preview"
+      "metrics": {
+        "totalPixels": 1056768,
+        "differentPixels": 530176,
+        "percentDifferent": "50.17",
+        "maeR": "22.43",
+        "maeG": "21.95",
+        "maeB": "20.27",
+        "mse": "1893.57",
+        "psnr": "15.36",
+        "ssim": "0.7675",
+        "msssim": "0.7675",
+        "butteraugli": "0.4360",
+        "flip": "0.1569",
+        "lpips": "0.0914",
+        "ssimulacra2": "76.75"
       },
-      {
-        "id": "gpt-image-1.5",
-        "displayName": "gpt-image-1.5"
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 3616
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 303856
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 292947
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 74437
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 61011
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 127095
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 118472
+        }
+      ]
+    },
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1376,
+        "height": 768
       },
-      {
-        "id": "chatgpt-image-latest",
-        "displayName": "chatgpt-image-latest"
+      "metrics": {
+        "totalPixels": 1056768,
+        "differentPixels": 178369,
+        "percentDifferent": "16.88",
+        "maeR": "2.53",
+        "maeG": "2.52",
+        "maeB": "2.57",
+        "mse": "19.33",
+        "psnr": "35.27",
+        "ssim": "0.9979",
+        "msssim": "0.9979",
+        "butteraugli": "0.0122",
+        "flip": "0.0194",
+        "lpips": "0.0111",
+        "ssimulacra2": "99.79"
       },
-      {
-        "id": "gpt-image-1",
-        "displayName": "gpt-image-1"
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 14459
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 467032
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 501207
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 56957
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 14434
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 1795
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 340
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
       },
-      {
-        "id": "gpt-image-1-mini",
-        "displayName": "gpt-image-1-mini"
+      "metrics": {
+        "totalPixels": 1572864,
+        "differentPixels": 1527417,
+        "percentDifferent": "97.11",
+        "maeR": "47.20",
+        "maeG": "40.25",
+        "maeB": "40.92",
+        "mse": "4045.62",
+        "psnr": "12.06",
+        "ssim": "0.5738",
+        "msssim": "0.5738",
+        "butteraugli": "0.8129",
+        "flip": "0.3211",
+        "lpips": "0.1882",
+        "ssimulacra2": "57.38"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 46
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 11228
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 99043
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 253229
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 277000
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 286400
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 405934
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1572864,
+        "differentPixels": 1466955,
+        "percentDifferent": "93.27",
+        "maeR": "35.17",
+        "maeG": "31.11",
+        "maeB": "28.94",
+        "mse": "2644.64",
+        "psnr": "13.91",
+        "ssim": "0.7042",
+        "msssim": "0.7042",
+        "butteraugli": "0.5982",
+        "flip": "0.2376",
+        "lpips": "0.1399",
+        "ssimulacra2": "70.42"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 506
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 27875
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 187268
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 289306
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 357118
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 302703
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 266429
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1572864,
+        "differentPixels": 1529329,
+        "percentDifferent": "97.23",
+        "maeR": "51.84",
+        "maeG": "44.66",
+        "maeB": "49.55",
+        "mse": "4711.84",
+        "psnr": "11.40",
+        "ssim": "0.4961",
+        "msssim": "0.4961",
+        "butteraugli": "0.9194",
+        "flip": "0.3637",
+        "lpips": "0.2107",
+        "ssimulacra2": "49.61"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 31
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 7977
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 90410
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 169894
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 216691
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 326671
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 484025
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1572864,
+        "differentPixels": 1563282,
+        "percentDifferent": "99.39",
+        "maeR": "49.98",
+        "maeG": "39.43",
+        "maeB": "45.19",
+        "mse": "4228.89",
+        "psnr": "11.87",
+        "ssim": "0.5626",
+        "msssim": "0.5626",
+        "butteraugli": "0.7746",
+        "flip": "0.3416",
+        "lpips": "0.1995",
+        "ssimulacra2": "56.26"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 17
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 1507
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 26890
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 169610
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 366877
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 337489
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 425288
+        }
+      ]
+    }
+  }
+},
+{
+  "timestamp": "2026-01-13T06:07:17.475Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768284437475.webp",
+      "name": "Science Diagram.png"
+    },
+    "generated": {
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1768284437475.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768284437475.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768284437475.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768284437475.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768284437475.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768284437475.webp",
+        "modelDisplayName": "gpt-image-1-mini"
       }
-    ],
-    "bestPerformers": {},
-    "allMetrics": [
-      {
-        "model": "gemini-2.5-flash-image-preview",
-        "modelId": "google/gemini-2.5-flash-image-preview",
-        "metrics": {
-          "totalPixels": 20155392,
-          "differentPixels": 15625192,
-          "percentDifferent": "77.52",
-          "maeR": "10.62",
-          "maeG": "9.50",
-          "maeB": "8.07",
-          "mse": "205.00",
-          "psnr": "25.01",
-          "ssim": "0.8900",
-          "msssim": "0.8900",
-          "butteraugli": "0.0876",
-          "flip": "0.0703",
-          "lpips": "0.0417",
-          "ssimulacra2": "89.00"
-        }
+    }
+  },
+  "models": [
+    "google/gemini-2.5-flash-image",
+    "google/gemini-3-pro-image-preview",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
       },
-      {
-        "model": "gemini-3-pro-image-preview",
-        "modelId": "google/gemini-3-pro-image-preview",
-        "metrics": {
-          "totalPixels": 20155392,
-          "differentPixels": 18384662,
-          "percentDifferent": "91.21",
-          "maeR": "8.19",
-          "maeG": "8.36",
-          "maeB": "5.01",
-          "mse": "91.34",
-          "psnr": "28.52",
-          "ssim": "0.9712",
-          "msssim": "0.9712",
-          "butteraugli": "0.0551",
-          "flip": "0.0553",
-          "lpips": "0.0330",
-          "ssimulacra2": "97.12"
-        }
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 368529,
+        "percentDifferent": "35.15",
+        "maeR": "7.20",
+        "maeG": "7.15",
+        "maeB": "6.35",
+        "mse": "421.90",
+        "psnr": "21.88",
+        "ssim": "0.6915",
+        "msssim": "0.6915",
+        "butteraugli": "0.1126",
+        "flip": "0.0480",
+        "lpips": "0.0281",
+        "ssimulacra2": "69.15"
       },
-      {
-        "model": "gpt-image-1.5",
-        "modelId": "gpt-image-1.5",
-        "metrics": {
-          "totalPixels": 20155392,
-          "differentPixels": 16970369,
-          "percentDifferent": "84.20",
-          "maeR": "18.46",
-          "maeG": "12.62",
-          "maeB": "14.50",
-          "mse": "560.14",
-          "psnr": "20.65",
-          "ssim": "0.6956",
-          "msssim": "0.6956",
-          "butteraugli": "0.1660",
-          "flip": "0.1151",
-          "lpips": "0.0687",
-          "ssimulacra2": "69.56"
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 6805
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 367681
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 449552
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 114576
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 54069
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 23552
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 16607
         }
+      ]
+    },
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
       },
-      {
-        "model": "chatgpt-image-latest",
-        "modelId": "chatgpt-image-latest",
-        "metrics": {
-          "totalPixels": 20155392,
-          "differentPixels": 17349821,
-          "percentDifferent": "86.08",
-          "maeR": "18.48",
-          "maeG": "12.65",
-          "maeB": "13.89",
-          "mse": "539.06",
-          "psnr": "20.81",
-          "ssim": "0.7272",
-          "msssim": "0.7272",
-          "butteraugli": "0.1606",
-          "flip": "0.1128",
-          "lpips": "0.0678",
-          "ssimulacra2": "72.72"
-        }
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 250412,
+        "percentDifferent": "23.88",
+        "maeR": "3.12",
+        "maeG": "3.08",
+        "maeB": "4.65",
+        "mse": "38.38",
+        "psnr": "32.29",
+        "ssim": "0.9786",
+        "msssim": "0.9786",
+        "butteraugli": "0.0213",
+        "flip": "0.0272",
+        "lpips": "0.0148",
+        "ssimulacra2": "97.86"
       },
-      {
-        "model": "gpt-image-1",
-        "modelId": "gpt-image-1",
-        "metrics": {
-          "totalPixels": 20155392,
-          "differentPixels": 20134364,
-          "percentDifferent": "99.90",
-          "maeR": "21.54",
-          "maeG": "18.67",
-          "maeB": "22.02",
-          "mse": "835.61",
-          "psnr": "18.91",
-          "ssim": "0.6851",
-          "msssim": "0.6851",
-          "butteraugli": "0.2129",
-          "flip": "0.1569",
-          "lpips": "0.0902",
-          "ssimulacra2": "68.51"
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 1748
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 320214
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 593534
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 71461
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 40032
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 19551
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 2013
         }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
       },
-      {
-        "model": "gpt-image-1-mini",
-        "modelId": "gpt-image-1-mini",
-        "metrics": {
-          "totalPixels": 20155392,
-          "differentPixels": 18554819,
-          "percentDifferent": "92.06",
-          "maeR": "22.74",
-          "maeG": "17.32",
-          "maeB": "20.24",
-          "mse": "900.23",
-          "psnr": "18.59",
-          "ssim": "0.5051",
-          "msssim": "0.5051",
-          "butteraugli": "0.2424",
-          "flip": "0.1518",
-          "lpips": "0.0891",
-          "ssimulacra2": "50.51"
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1001809,
+        "percentDifferent": "95.54",
+        "maeR": "20.10",
+        "maeG": "18.35",
+        "maeB": "21.81",
+        "mse": "1237.00",
+        "psnr": "17.21",
+        "ssim": "0.2953",
+        "msssim": "0.2953",
+        "butteraugli": "0.3302",
+        "flip": "0.1386",
+        "lpips": "0.0791",
+        "ssimulacra2": "29.53"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 14
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 5354
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 94482
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 233727
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 543052
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 75315
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 54052
         }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 930644,
+        "percentDifferent": "88.75",
+        "maeR": "19.48",
+        "maeG": "19.10",
+        "maeB": "20.71",
+        "mse": "1352.13",
+        "psnr": "16.82",
+        "ssim": "0.2408",
+        "msssim": "0.2408",
+        "butteraugli": "0.3546",
+        "flip": "0.1363",
+        "lpips": "0.0779",
+        "ssimulacra2": "24.08"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 54
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 29164
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 170925
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 288689
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 382151
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 63885
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 60188
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1048246,
+        "percentDifferent": "99.97",
+        "maeR": "18.97",
+        "maeG": "15.10",
+        "maeB": "20.51",
+        "mse": "1575.03",
+        "psnr": "16.16",
+        "ssim": "0.2289",
+        "msssim": "0.2289",
+        "butteraugli": "0.3413",
+        "flip": "0.1320",
+        "lpips": "0.0753",
+        "ssimulacra2": "22.89"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 0
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 29
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 18240
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 813255
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 70673
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 43799
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 47059
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1572864,
+        "differentPixels": 942006,
+        "percentDifferent": "59.89",
+        "maeR": "18.23",
+        "maeG": "16.12",
+        "maeB": "14.54",
+        "mse": "1472.11",
+        "psnr": "16.45",
+        "ssim": "0.1589",
+        "msssim": "0.1589",
+        "butteraugli": "0.3455",
+        "flip": "0.1144",
+        "lpips": "0.0680",
+        "ssimulacra2": "15.89"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 16
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 49208
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 915542
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 251613
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 101679
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 88750
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 84778
+        }
+      ]
+    }
+  }
+},
+{
+  "timestamp": "2026-01-13T06:17:33.823Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768285053823.webp",
+      "name": "Complex Scatterplot.png"
+    },
+    "generated": {
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_preview_1768285053823.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768285053823.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768285053823.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768285053823.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768285053823.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768285053823.webp",
+        "modelDisplayName": "gpt-image-1-mini"
       }
-    ]
+    }
+  },
+  "models": [
+    "google/gemini-2.5-flash-image",
+    "google/gemini-3-pro-image-preview",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 442693,
+        "percentDifferent": "42.22",
+        "maeR": "10.51",
+        "maeG": "11.35",
+        "maeB": "10.40",
+        "mse": "542.56",
+        "psnr": "20.79",
+        "ssim": "0.7074",
+        "msssim": "0.7074",
+        "butteraugli": "0.1698",
+        "flip": "0.0778",
+        "lpips": "0.0449",
+        "ssimulacra2": "70.74"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 14867
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 454539
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 200036
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 106919
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 107010
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 83868
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 65237
+        }
+      ]
+    },
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 390077,
+        "percentDifferent": "37.20",
+        "maeR": "7.34",
+        "maeG": "7.45",
+        "maeB": "7.38",
+        "mse": "221.91",
+        "psnr": "24.67",
+        "ssim": "0.8936",
+        "msssim": "0.8936",
+        "butteraugli": "0.0839",
+        "flip": "0.0539",
+        "lpips": "0.0310",
+        "ssimulacra2": "89.36"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 7485
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 442095
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 278093
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 107034
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 99143
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 79159
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 33882
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 998243,
+        "percentDifferent": "95.20",
+        "maeR": "21.32",
+        "maeG": "21.13",
+        "maeB": "19.06",
+        "mse": "1370.06",
+        "psnr": "16.76",
+        "ssim": "0.4291",
+        "msssim": "0.4291",
+        "butteraugli": "0.3627",
+        "flip": "0.1473",
+        "lpips": "0.0861",
+        "ssimulacra2": "42.91"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 58
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 13552
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 126727
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 482692
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 151452
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 123632
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 100150
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 909241,
+        "percentDifferent": "86.71",
+        "maeR": "18.25",
+        "maeG": "19.90",
+        "maeB": "18.11",
+        "mse": "1290.65",
+        "psnr": "17.02",
+        "ssim": "0.4205",
+        "msssim": "0.4205",
+        "butteraugli": "0.3369",
+        "flip": "0.1365",
+        "lpips": "0.0785",
+        "ssimulacra2": "42.05"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 112
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 27645
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 394073
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 236045
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 130739
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 115964
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 98553
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 606205,
+        "percentDifferent": "57.81",
+        "maeR": "15.33",
+        "maeG": "15.40",
+        "maeB": "17.11",
+        "mse": "1043.84",
+        "psnr": "17.94",
+        "ssim": "0.4033",
+        "msssim": "0.4033",
+        "butteraugli": "0.2682",
+        "flip": "0.1180",
+        "lpips": "0.0670",
+        "ssimulacra2": "40.33"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 82
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 52586
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 500427
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 127172
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 145640
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 105871
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 82652
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 825600,
+        "percentDifferent": "78.74",
+        "maeR": "15.97",
+        "maeG": "16.14",
+        "maeB": "16.44",
+        "mse": "993.82",
+        "psnr": "18.16",
+        "ssim": "0.4156",
+        "msssim": "0.4156",
+        "butteraugli": "0.2685",
+        "flip": "0.1176",
+        "lpips": "0.0675",
+        "ssimulacra2": "41.56"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 269
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 40240
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 471458
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 184831
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 128188
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 103946
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 84757
+        }
+      ]
+    }
+  }
+},
+{
+  "timestamp": "2026-01-16T00:43:22.871Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768524202871.webp",
+      "name": "surreal painting.png"
+    },
+    "generated": {
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768524202871.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_1768524202871.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768524202871.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768524202871.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768524202871.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768524202871.webp",
+        "modelDisplayName": "gpt-image-1-mini"
+      }
+    }
+  },
+  "models": [
+    "google/gemini-3-pro-image-preview",
+    "google/gemini-2.5-flash-image",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 451937,
+        "percentDifferent": "43.10",
+        "maeR": "4.03",
+        "maeG": "3.58",
+        "maeB": "4.19",
+        "mse": "29.04",
+        "psnr": "33.50",
+        "ssim": "0.9973",
+        "msssim": "0.9973",
+        "butteraugli": "0.0220",
+        "flip": "0.0287",
+        "lpips": "0.0165",
+        "ssimulacra2": "99.73"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 6722
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 273005
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 513029
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 206217
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 45293
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 4002
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 303
+        }
+      ]
+    },
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 913981,
+        "percentDifferent": "87.16",
+        "maeR": "35.79",
+        "maeG": "33.55",
+        "maeB": "28.90",
+        "mse": "2529.40",
+        "psnr": "14.10",
+        "ssim": "0.6669",
+        "msssim": "0.6669",
+        "butteraugli": "0.6662",
+        "flip": "0.2348",
+        "lpips": "0.1385",
+        "ssimulacra2": "66.69"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 867
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 54331
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 147289
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 155669
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 193538
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 187227
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 203853
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1010435,
+        "percentDifferent": "96.36",
+        "maeR": "29.95",
+        "maeG": "27.83",
+        "maeB": "25.92",
+        "mse": "1783.86",
+        "psnr": "15.62",
+        "ssim": "0.7720",
+        "msssim": "0.7720",
+        "butteraugli": "0.4989",
+        "flip": "0.2006",
+        "lpips": "0.1175",
+        "ssimulacra2": "77.20"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 33
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 7475
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 80762
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 216405
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 303059
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 220456
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 153473
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 966051,
+        "percentDifferent": "92.13",
+        "maeR": "31.42",
+        "maeG": "28.47",
+        "maeB": "23.53",
+        "mse": "1777.98",
+        "psnr": "15.63",
+        "ssim": "0.7656",
+        "msssim": "0.7656",
+        "butteraugli": "0.5164",
+        "flip": "0.1993",
+        "lpips": "0.1187",
+        "ssimulacra2": "76.56"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 155
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 23966
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 129254
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 203202
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 239657
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 212580
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 172988
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 977115,
+        "percentDifferent": "93.18",
+        "maeR": "32.52",
+        "maeG": "31.07",
+        "maeB": "26.45",
+        "mse": "2064.58",
+        "psnr": "14.98",
+        "ssim": "0.7221",
+        "msssim": "0.7221",
+        "butteraugli": "0.5702",
+        "flip": "0.2156",
+        "lpips": "0.1269",
+        "ssimulacra2": "72.21"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 62
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 16964
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 117110
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 158336
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 255608
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 251221
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 174722
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1002482,
+        "percentDifferent": "95.60",
+        "maeR": "46.47",
+        "maeG": "43.80",
+        "maeB": "42.95",
+        "mse": "3841.98",
+        "psnr": "12.29",
+        "ssim": "0.5136",
+        "msssim": "0.5136",
+        "butteraugli": "0.9062",
+        "flip": "0.3228",
+        "lpips": "0.1871",
+        "ssimulacra2": "51.36"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 101
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 14394
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 62452
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 76964
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 157157
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 314883
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 272688
+        }
+      ]
+    }
+  }
+},
+{
+  "timestamp": "2026-01-16T02:47:48.278Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768531668278.webp",
+      "name": "dot stereogram.png"
+    },
+    "generated": {
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768531668278.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_1768531668278.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768531668278.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768531668278.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768531668278.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768531668278.webp",
+        "modelDisplayName": "gpt-image-1-mini"
+      }
+    }
+  },
+  "models": [
+    "google/gemini-3-pro-image-preview",
+    "google/gemini-2.5-flash-image",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 904474,
+        "percentDifferent": "86.26",
+        "maeR": "11.18",
+        "maeG": "11.26",
+        "maeB": "10.78",
+        "mse": "223.35",
+        "psnr": "24.64",
+        "ssim": "0.9850",
+        "msssim": "0.9850",
+        "butteraugli": "0.1095",
+        "flip": "0.0804",
+        "lpips": "0.0464",
+        "ssimulacra2": "98.50"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 1020
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 41973
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 231753
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 338494
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 306720
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 111586
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 16721
+        }
+      ]
+    },
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 989665,
+        "percentDifferent": "94.38",
+        "maeR": "65.83",
+        "maeG": "65.93",
+        "maeB": "69.84",
+        "mse": "8855.72",
+        "psnr": "8.66",
+        "ssim": "0.3784",
+        "msssim": "0.3784",
+        "butteraugli": "1.6891",
+        "flip": "0.4832",
+        "lpips": "0.2768",
+        "ssimulacra2": "37.84"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 140
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 23387
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 65047
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 79763
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 110602
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 183045
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 291148
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1006549,
+        "percentDifferent": "95.99",
+        "maeR": "62.13",
+        "maeG": "62.31",
+        "maeB": "64.90",
+        "mse": "7511.37",
+        "psnr": "9.37",
+        "ssim": "0.4115",
+        "msssim": "0.4115",
+        "butteraugli": "1.5316",
+        "flip": "0.4503",
+        "lpips": "0.2583",
+        "ssimulacra2": "41.15"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 161
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 17725
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 47851
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 74277
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 132511
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 204299
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 285970
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1038349,
+        "percentDifferent": "99.02",
+        "maeR": "69.23",
+        "maeG": "68.91",
+        "maeB": "70.38",
+        "mse": "8836.33",
+        "psnr": "8.67",
+        "ssim": "0.3412",
+        "msssim": "0.3412",
+        "butteraugli": "1.7756",
+        "flip": "0.4929",
+        "lpips": "0.2839",
+        "ssimulacra2": "34.12"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 1
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 875
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 45679
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 88097
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 122344
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 185469
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 276387
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1046684,
+        "percentDifferent": "99.82",
+        "maeR": "64.84",
+        "maeG": "61.62",
+        "maeB": "64.86",
+        "mse": "7170.12",
+        "psnr": "9.58",
+        "ssim": "0.3614",
+        "msssim": "0.3614",
+        "butteraugli": "1.4905",
+        "flip": "0.4554",
+        "lpips": "0.2625",
+        "ssimulacra2": "36.14"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 0
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 299
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 5554
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 28800
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 153487
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 282248
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 310786
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1039895,
+        "percentDifferent": "99.17",
+        "maeR": "62.15",
+        "maeG": "61.78",
+        "maeB": "65.78",
+        "mse": "7466.92",
+        "psnr": "9.40",
+        "ssim": "0.3960",
+        "msssim": "0.3960",
+        "butteraugli": "1.5238",
+        "flip": "0.4514",
+        "lpips": "0.2585",
+        "ssimulacra2": "39.60"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 4
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 543
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 38655
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 76287
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 143912
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 225496
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 286985
+        }
+      ]
+    }
+  }
+},
+{
+  "timestamp": "2026-01-16T02:56:11.026Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768532171026.webp",
+      "name": "Document.png"
+    },
+    "generated": {
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768532171026.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_1768532171026.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768532171026.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768532171026.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768532171026.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768532171026.webp",
+        "modelDisplayName": "gpt-image-1-mini"
+      }
+    }
+  },
+  "models": [
+    "google/gemini-3-pro-image-preview",
+    "google/gemini-2.5-flash-image",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 350165,
+        "percentDifferent": "33.39",
+        "maeR": "10.99",
+        "maeG": "10.82",
+        "maeB": "11.15",
+        "mse": "623.14",
+        "psnr": "20.18",
+        "ssim": "0.8942",
+        "msssim": "0.8942",
+        "butteraugli": "0.1886",
+        "flip": "0.0754",
+        "lpips": "0.0435",
+        "ssimulacra2": "89.42"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 185758
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 390684
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 179349
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 68245
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 52933
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 65320
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 81287
+        }
+      ]
+    },
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 436617,
+        "percentDifferent": "41.64",
+        "maeR": "26.93",
+        "maeG": "26.80",
+        "maeB": "26.87",
+        "mse": "2884.44",
+        "psnr": "13.53",
+        "ssim": "0.3357",
+        "msssim": "0.3357",
+        "butteraugli": "0.6531",
+        "flip": "0.1835",
+        "lpips": "0.1059",
+        "ssimulacra2": "33.57"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 19915
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 461487
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 177199
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 54994
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 44758
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 57437
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 87250
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 499033,
+        "percentDifferent": "47.59",
+        "maeR": "36.37",
+        "maeG": "35.43",
+        "maeB": "35.27",
+        "mse": "4302.22",
+        "psnr": "11.79",
+        "ssim": "0.1397",
+        "msssim": "0.1397",
+        "butteraugli": "0.9228",
+        "flip": "0.2436",
+        "lpips": "0.1413",
+        "ssimulacra2": "13.97"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 54278
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 357814
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 168478
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 43818
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 63511
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 61466
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 104047
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 503675,
+        "percentDifferent": "48.03",
+        "maeR": "36.78",
+        "maeG": "35.70",
+        "maeB": "36.46",
+        "mse": "4400.83",
+        "psnr": "11.70",
+        "ssim": "0.1004",
+        "msssim": "0.1004",
+        "butteraugli": "0.9357",
+        "flip": "0.2489",
+        "lpips": "0.1439",
+        "ssimulacra2": "10.04"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 20964
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 429263
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 122397
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 44021
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 67419
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 63229
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 101644
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 490046,
+        "percentDifferent": "46.73",
+        "maeR": "38.14",
+        "maeG": "36.76",
+        "maeB": "36.35",
+        "mse": "5180.06",
+        "psnr": "10.99",
+        "ssim": "0.0788",
+        "msssim": "0.0788",
+        "butteraugli": "1.0332",
+        "flip": "0.2536",
+        "lpips": "0.1474",
+        "ssimulacra2": "7.88"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 157662
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 331497
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 107390
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 51523
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 63340
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 53484
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 84418
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 476254,
+        "percentDifferent": "45.42",
+        "maeR": "39.78",
+        "maeG": "38.79",
+        "maeB": "39.00",
+        "mse": "5719.48",
+        "psnr": "10.56",
+        "ssim": "0.0832",
+        "msssim": "0.0832",
+        "butteraugli": "1.1056",
+        "flip": "0.2677",
+        "lpips": "0.1550",
+        "ssimulacra2": "8.32"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 8529
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 242745
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 360031
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 45072
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 59346
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 48782
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 77852
+        }
+      ]
+    }
+  }
+},
+{
+  "timestamp": "2026-01-16T03:04:07.948Z",
+  "prompt": "Recreate the provided image EXACTLY:\n- Same resolution and aspect ratio\n- Same colors, lighting, composition\n- Same shapes and positions\n- No stylization, no creativity, no cleanup\n- Do not add/remove text, objects, or artifacts\n- Output should be the closest possible pixel-level match",
+  "threshold": 10,
+  "images": {
+    "original": {
+      "path": "images/original_1768532647948.webp",
+      "name": "Tuvalu map.png"
+    },
+    "generated": {
+      "google/gemini-3-pro-image-preview": {
+        "path": "images/generated_google_gemini_3_pro_image_preview_1768532647948.webp",
+        "modelDisplayName": "gemini-3-pro-image-preview"
+      },
+      "google/gemini-2.5-flash-image": {
+        "path": "images/generated_google_gemini_2_5_flash_image_1768532647948.webp",
+        "modelDisplayName": "gemini-2.5-flash-image"
+      },
+      "gpt-image-1.5": {
+        "path": "images/generated_gpt_image_1_5_1768532647948.webp",
+        "modelDisplayName": "gpt-image-1.5"
+      },
+      "chatgpt-image-latest": {
+        "path": "images/generated_chatgpt_image_latest_1768532647948.webp",
+        "modelDisplayName": "chatgpt-image-latest"
+      },
+      "gpt-image-1": {
+        "path": "images/generated_gpt_image_1_1768532647948.webp",
+        "modelDisplayName": "gpt-image-1"
+      },
+      "gpt-image-1-mini": {
+        "path": "images/generated_gpt_image_1_mini_1768532647948.webp",
+        "modelDisplayName": "gpt-image-1-mini"
+      }
+    }
+  },
+  "models": [
+    "google/gemini-3-pro-image-preview",
+    "google/gemini-2.5-flash-image",
+    "gpt-image-1.5",
+    "chatgpt-image-latest",
+    "gpt-image-1",
+    "gpt-image-1-mini"
+  ],
+  "pixelDifferenceAnalysis": {
+    "google/gemini-3-pro-image-preview": {
+      "modelDisplayName": "gemini-3-pro-image-preview",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 142635,
+        "percentDifferent": "13.60",
+        "maeR": "3.09",
+        "maeG": "3.13",
+        "maeB": "3.17",
+        "mse": "83.42",
+        "psnr": "28.92",
+        "ssim": "0.9620",
+        "msssim": "0.9620",
+        "butteraugli": "0.0296",
+        "flip": "0.0231",
+        "lpips": "0.0132",
+        "ssimulacra2": "96.20"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 34883
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 559542
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 374793
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 34515
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 21539
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 13947
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 6368
+        }
+      ]
+    },
+    "google/gemini-2.5-flash-image": {
+      "modelDisplayName": "gemini-2.5-flash-image",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 23242,
+        "percentDifferent": "2.22",
+        "maeR": "0.88",
+        "maeG": "0.87",
+        "maeB": "1.08",
+        "mse": "2.55",
+        "psnr": "44.07",
+        "ssim": "0.9992",
+        "msssim": "0.9992",
+        "butteraugli": "0.0025",
+        "flip": "0.0077",
+        "lpips": "0.0043",
+        "ssimulacra2": "99.92"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 82702
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 883226
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 71751
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 8395
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 2394
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 108
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 0
+        }
+      ]
+    },
+    "gpt-image-1.5": {
+      "modelDisplayName": "gpt-image-1.5",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 993500,
+        "percentDifferent": "94.75",
+        "maeR": "13.03",
+        "maeG": "17.55",
+        "maeB": "16.63",
+        "mse": "668.62",
+        "psnr": "19.88",
+        "ssim": "0.7242",
+        "msssim": "0.7242",
+        "butteraugli": "0.2203",
+        "flip": "0.1125",
+        "lpips": "0.0625",
+        "ssimulacra2": "72.42"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 155
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 12187
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 106240
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 299783
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 445599
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 133003
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 34638
+        }
+      ]
+    },
+    "chatgpt-image-latest": {
+      "modelDisplayName": "chatgpt-image-latest",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 936274,
+        "percentDifferent": "89.29",
+        "maeR": "15.47",
+        "maeG": "19.29",
+        "maeB": "21.54",
+        "mse": "933.95",
+        "psnr": "18.43",
+        "ssim": "0.6179",
+        "msssim": "0.6179",
+        "butteraugli": "0.2794",
+        "flip": "0.1340",
+        "lpips": "0.0737",
+        "ssimulacra2": "61.79"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 247
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 37111
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 150060
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 192441
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 379799
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 217037
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 46011
+        }
+      ]
+    },
+    "gpt-image-1": {
+      "modelDisplayName": "gpt-image-1",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 1042297,
+        "percentDifferent": "99.40",
+        "maeR": "18.74",
+        "maeG": "20.56",
+        "maeB": "17.64",
+        "mse": "874.56",
+        "psnr": "18.71",
+        "ssim": "0.6447",
+        "msssim": "0.6447",
+        "butteraugli": "0.2886",
+        "flip": "0.1319",
+        "lpips": "0.0763",
+        "ssimulacra2": "64.47"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 169
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 644
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 32468
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 219240
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 575542
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 147550
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 49542
+        }
+      ]
+    },
+    "gpt-image-1-mini": {
+      "modelDisplayName": "gpt-image-1-mini",
+      "dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "metrics": {
+        "totalPixels": 1048576,
+        "differentPixels": 993228,
+        "percentDifferent": "94.72",
+        "maeR": "20.61",
+        "maeG": "23.24",
+        "maeB": "25.69",
+        "mse": "993.29",
+        "psnr": "18.16",
+        "ssim": "0.6544",
+        "msssim": "0.6544",
+        "butteraugli": "0.3323",
+        "flip": "0.1604",
+        "lpips": "0.0895",
+        "ssimulacra2": "65.44"
+      },
+      "errorDistribution": [
+        {
+          "min": 0,
+          "max": 0,
+          "label": "0 (Exact)",
+          "color": "#28a745",
+          "count": 115
+        },
+        {
+          "min": 1,
+          "max": 5,
+          "label": "1-5",
+          "color": "#20c997",
+          "count": 8393
+        },
+        {
+          "min": 6,
+          "max": 15,
+          "label": "6-15",
+          "color": "#ffc107",
+          "count": 93176
+        },
+        {
+          "min": 16,
+          "max": 30,
+          "label": "16-30",
+          "color": "#fd7e14",
+          "count": 93727
+        },
+        {
+          "min": 31,
+          "max": 60,
+          "label": "31-60",
+          "color": "#dc3545",
+          "count": 405242
+        },
+        {
+          "min": 61,
+          "max": 120,
+          "label": "61-120",
+          "color": "#c82333",
+          "count": 342255
+        },
+        {
+          "min": 121,
+          "max": 255,
+          "label": "121-255",
+          "color": "#6c757d",
+          "count": 85966
+        }
+      ]
+    }
   }
 }
 ]

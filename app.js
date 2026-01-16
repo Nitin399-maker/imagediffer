@@ -13,7 +13,10 @@ const state = {
     selectedModels: [], 
     comparisonData: null,
     currentPrompt: '',
-    metricsResults: {} 
+    metricsResults: {},
+    sortOrder: 'desc',
+    allSessions: [],
+    selectedMetaMetric: 'ssim'
 };
 
 const DOM = {};
@@ -29,6 +32,8 @@ const cacheDOM = () => {
     DOM.generateBtn = $('generate-btn');
     DOM.compareBtn = $('compare-btn');
     DOM.exportTableBtn = $('export-table-btn');
+    DOM.metaMetricSelect = $('meta-metric-select');
+    DOM.metaAnalysisTable = $('meta-analysis-table');
 };
 
 const showDualConfigDialog = async () => {
@@ -68,14 +73,25 @@ const loadModels = async () => {
         const dualConfig = getDualConfig();
         let allModels = [];
         if (dualConfig.openrouter.apiKey) {
-            const orConfig = await openaiConfig({ defaultBaseUrls: OPENROUTER_BASE_URLS });
-            if (orConfig.models?.length) {
-                allModels.push(...orConfig.models.filter(m => 
-                    /gemini.*2\.5.*flash.*image.*preview/i.test(m) && !/gemini.*3.*pro/i.test(m)
-                ));
+            try {
+                const response = await fetch(`${dualConfig.openrouter.baseUrl || 'https://openrouter.ai/api/v1'}/models`, {
+                    headers: { 'Authorization': `Bearer ${dualConfig.openrouter.apiKey}` }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.data?.length) {
+                        allModels.push(...data.data.filter(m =>
+                            m.id && (
+                                    m.id === "google/gemini-2.5-flash-image" ||
+                                    m.id === "google/gemini-3-pro-image-preview"
+                                    )
+                        ).map(m => m.id));
+                    }
+                }
+            } catch (error) {
+                console.warn('Direct OpenRouter fetch failed, trying bootstrap provider:', error);
             }
         }
-        
         if (dualConfig.openai.apiKey) { allModels.push('gpt-image-1.5','chatgpt-image-latest','gpt-image-1','gpt-image-1-mini');}
         if (!allModels.length) {
             bootstrapAlert({ title: "No Models", body: "Please configure at least one API key to load models.", color: "warning" });
@@ -83,7 +99,7 @@ const loadModels = async () => {
         }
         state.availableModels = allModels.sort((a, b) => (b === RECOMMENDED_MODEL) - (a === RECOMMENDED_MODEL));
         if (!DOM.modelCheckboxes) return;
-        DOM.modelCheckboxes.innerHTML = state.availableModels.map((m, i) => 
+        DOM.modelCheckboxes.innerHTML = state.availableModels.map((m, i) =>
             generateModelCheckboxHTML(m, i, RECOMMENDED_MODEL)
         ).join('');
         if (state.selectedModels.length === 0) {
@@ -160,7 +176,7 @@ const displayMetrics = (m, bins) => {
     [['metric-total', m.totalPixels.toLocaleString()], ['metric-diff', m.differentPixels.toLocaleString()],
      ['metric-percent', `${m.percentDifferent}%`], ['metric-psnr', `${m.psnr} dB`],
      ['metric-mae-r', m.maeR], ['metric-mae-g', m.maeG], ['metric-mae-b', m.maeB],
-     ['metric-mse', m.mse], ['metric-ssim', m.ssim], ['metric-msssim', m.msssim],
+     ['metric-mse', m.mse], ['metric-ssim', m.ssim],
      ['metric-butteraugli', m.butteraugli], ['metric-flip', m.flip],
      ['metric-lpips', m.lpips], ['metric-ssimulacra2', m.ssimulacra2]
     ].forEach(([id, val]) => { const el = $(id); if (el) el.textContent = val; });
@@ -299,20 +315,21 @@ const displayModelComparison = () => {
     if (!DOM.modelComparisonTable) return;
     const models = Object.keys(state.metricsResults);
     if (!models.length) return;
+    const allMetrics = {};
+    models.forEach(m => allMetrics[m] = state.metricsResults[m].metrics);
     DOM.modelComparisonTable.innerHTML = models.map(model => 
-        generateComparisonTableRowHTML(model, state.metricsResults[model].metrics, getModelDisplayName)
+        generateComparisonTableRowHTML(model, state.metricsResults[model].metrics, getModelDisplayName, allMetrics)
     ).join('');
-    displayBestModels();
     if (DOM.exportTableBtn) DOM.exportTableBtn.disabled = false;
 };
 
 const exportMetricsTable = () => {
     const models = Object.keys(state.metricsResults);
     if (!models.length) return;
-    const csv = ['Model,PSNR,SSIM,MS-SSIM,SSIMULACRA2,Butteraugli,FLIP,LPIPS,% Diff'];
+    const csv = ['Model,PSNR,SSIM,SSIMULACRA2,Butteraugli,FLIP,LPIPS,% Diff'];
     models.forEach(model => {
         const m = state.metricsResults[model].metrics;
-        csv.push(`${getModelDisplayName(model)},${m.psnr},${m.ssim},${m.msssim},${m.ssimulacra2},${m.butteraugli},${m.flip},${m.lpips},${m.percentDifferent}`);
+        csv.push(`${getModelDisplayName(model)},${m.psnr},${m.ssim},${m.ssimulacra2},${m.butteraugli},${m.flip},${m.lpips},${m.percentDifferent}`);
     });
     const blob = new Blob([csv.join('\n')], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -324,17 +341,86 @@ const exportMetricsTable = () => {
     bootstrapAlert({ title: "Exported!", body: "Metrics comparison table exported as CSV.", color: "success" });
 };
 
-const displayBestModels = () => {
-    if (!DOM.bestModels || !Object.keys(state.metricsResults).length) return;
-    DOM.bestModels.innerHTML = generateBestModelsHTML({
-        'PSNR': { better: 'higher', key: 'psnr', humanAlign: 'Good' },
-        'SSIM': { better: 'higher', key: 'ssim', humanAlign: 'Excellent' },
-        'MS-SSIM': { better: 'higher', key: 'msssim', humanAlign: 'Excellent' },
-        'SSIMULACRA2': { better: 'higher', key: 'ssimulacra2', humanAlign: 'Excellent' },
-        'Butteraugli': { better: 'lower', key: 'butteraugli', humanAlign: 'Good' },
-        'FLIP': { better: 'lower', key: 'flip', humanAlign: 'Good' },
-        'LPIPS': { better: 'lower', key: 'lpips', humanAlign: 'Excellent' }
-    }, state.metricsResults, getModelDisplayName);
+window.sortTable = (column) => {
+    const models = Object.keys(state.metricsResults);
+    const metricMap = { 0: null, 1: 'psnr', 2: 'ssim', 3: 'ssimulacra2', 4: 'butteraugli', 5: 'flip', 6: 'lpips', 7: 'percentDifferent' };
+    const metricKey = metricMap[column];
+    if (!metricKey) return;
+    const betterHigher = [1,2,3].includes(column);
+    state.sortOrder = state.sortOrder === 'asc' ? 'desc' : 'asc';
+    models.sort((a, b) => {
+        const valA = state.metricsResults[a].metrics[metricKey];
+        const valB = state.metricsResults[b].metrics[metricKey];
+        return state.sortOrder === 'asc' ? valA - valB : valB - valA;
+    });
+    const allMetrics = {};
+    models.forEach(m => allMetrics[m] = state.metricsResults[m].metrics);
+    DOM.modelComparisonTable.innerHTML = models.map(model => 
+        generateComparisonTableRowHTML(model, state.metricsResults[model].metrics, getModelDisplayName, allMetrics)
+    ).join('');
+};
+
+const displayMetaAnalysis = () => {
+    if (!DOM.metaAnalysisTable || !state.allSessions.length) return;
+    const metric = state.selectedMetaMetric;
+    const betterHigher = ['psnr', 'ssim', 'ssimulacra2'].includes(metric);
+    const imageTypes = {};
+    const allModels = new Set();
+    state.allSessions.forEach(session => {
+        const imgName = session.images?.original?.name || 'Unknown';
+        const imgType = imgName.replace(/\.(jpg|png|webp|jpeg)$/i, '');
+        if (!imageTypes[imgType]) imageTypes[imgType] = {};
+        if (session.pixelDifferenceAnalysis) {
+            Object.entries(session.pixelDifferenceAnalysis).forEach(([model, data]) => {
+                allModels.add(model);
+                const value = parseFloat(data.metrics[metric]);
+                if (!isNaN(value)) imageTypes[imgType][model] = value;
+            });
+        }
+    });
+    const models = Array.from(allModels).sort();
+    const modelAverages = {};
+    models.forEach(model => {
+        const values = Object.values(imageTypes).map(img => img[model]).filter(v => v !== undefined);
+        modelAverages[model] = values.length ? (values.reduce((a, b) => a + b, 0) / values.length) : null;
+    });
+    const bestOverall = models.reduce((best, model) => {
+        const val = modelAverages[model];
+        if (val === null) return best;
+        if (best === null) return model;
+        const bestVal = modelAverages[best];
+        return (betterHigher ? val > bestVal : val < bestVal) ? model : best;
+    }, null);
+    let html = '<thead class="table-dark"><tr><th>Image Type</th>';
+    models.forEach(m => html += '<th>' + getModelDisplayName(m) + '</th>');
+    html += '</tr></thead><tbody>';
+    Object.entries(imageTypes).forEach(([imgType, modelScores]) => {
+        html += '<tr><td><strong>' + imgType + '</strong></td>';
+        const values = models.map(m => modelScores[m]);
+        const bestVal = betterHigher ? Math.max(...values.filter(v => v !== undefined)) : Math.min(...values.filter(v => v !== undefined));
+        models.forEach(model => {
+            const val = modelScores[model];
+            const isBest = val === bestVal && val !== undefined;
+            const style = isBest ? 'background-color: #198754 !important; color: #fff !important; font-weight: bold;' : '';
+            html += '<td style="' + style + '">' + (val !== undefined ? val.toFixed(4) : 'N/A') + '</td>';
+        });
+        html += '</tr>';
+    });
+    html += '<tr class="table-warning"><td><strong>Overall Average</strong></td>';
+    models.forEach(model => {
+        const avg = modelAverages[model];
+        const isBest = model === bestOverall;
+        const style = isBest ? 'background-color: #198754 !important; color: #fff !important; font-weight: bold;' : '';
+        html += '<td style="' + style + '">' + (avg !== null ? avg.toFixed(4) : 'N/A') + '</td>';
+    });
+    html += '</tr></tbody>';
+    DOM.metaAnalysisTable.innerHTML = html;
+};
+
+window.updateMetaMetric = () => {
+    if (!DOM.metaMetricSelect) return;
+    state.selectedMetaMetric = DOM.metaMetricSelect.value;
+    displayMetaAnalysis();
 };
 
 window.setPromptPreset = preset => {
@@ -367,17 +453,23 @@ const loadDemoSessions = async () => {
         const response = await fetch('config.json');
         if (!response.ok) { console.warn('config.json not found.'); return []; }
         const sessions = await response.json();
-        return Array.isArray(sessions) ? sessions : [sessions];
+        state.allSessions = Array.isArray(sessions) ? sessions : [sessions];
+        return state.allSessions;
     } catch (error) { console.warn('Failed to load demo sessions:', error); return []; }
 };
 
 const displayDemoSessions = async () => {
-    const container = $('demo-sessions-container'), card = $('demo-sessions-card');
+    const container = $('demo-sessions-container'), card = $('demo-sessions-card'), metaCard = $('meta-analysis-card');
     if (!container || !card) return;
     const sessions = await loadDemoSessions();
     console.log(`Loaded ${sessions.length} session(s) from config.json`);
-    if (!sessions.length) { card.style.display = 'none'; return; }
+    if (!sessions.length) { 
+        card.style.display = 'none'; 
+        if (metaCard) metaCard.style.display = 'none';
+        return; 
+    }
     card.style.display = 'block';
+    if (metaCard) metaCard.style.display = 'block';
     container.innerHTML = sessions.map((session, index) => {
         try { return generateDemoCardHTML(session, index, session.images?.original?.path || ''); }
         catch (err) { console.error(`Error rendering session ${index}:`, err); return ''; }
@@ -387,6 +479,7 @@ const displayDemoSessions = async () => {
         document.querySelectorAll('.demo-card').forEach(c => c.classList.remove('active'));
         this.classList.add('active');
     }));
+    displayMetaAnalysis();
 };
 
 const tryLoadImage = async (path) => {
