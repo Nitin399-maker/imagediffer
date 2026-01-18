@@ -283,11 +283,17 @@ export const generateComparisonTableRowHTML = (model, metrics, displayNameFn, al
         const values = Object.values(allMetrics).map(m => parseFloat(m[metricKey]));
         const max = Math.max(...values), min = Math.min(...values);
         const numValue = parseFloat(value);
-        const isBest = (better === 'higher' && numValue === max) || (better === 'lower' && numValue === min);
-        const isWorst = (better === 'higher' && numValue === min) || (better === 'lower' && numValue === max);
-        if (isBest) return 'background-color: #198754 !important; color: #fff !important; font-weight: bold;';
-        if (isWorst) return 'background-color: #dc3545 !important; color: #fff !important;';
-        return '';
+        if (max === min) return '';
+        const normalized = (numValue - min) / (max - min);
+        const ratio = better === 'higher' ? normalized : (1 - normalized);
+        // Enhanced red→blue gradient with more vibrant colors
+        const r = Math.round(255 * (1 - ratio) + 0 * ratio);
+        const g = Math.round(50 * (1 - ratio) + 120 * ratio);
+        const b = Math.round(50 * (1 - ratio) + 255 * ratio);
+        const textColor = '#fff';
+        const fontWeight = ratio > 0.7 ? 'bold' : 'normal';
+        const fontSize = ratio > 0.8 ? '1.1em' : '1em';
+        return `background-color: rgb(${r},${g},${b}) !important; color: ${textColor} !important; font-weight: ${fontWeight}; font-size: ${fontSize};`;
     };
     return '<tr>' +
         '<td><strong>' + modelLabel + '</strong></td>' +

@@ -396,22 +396,44 @@ const displayMetaAnalysis = () => {
     html += '</tr></thead><tbody>';
     Object.entries(imageTypes).forEach(([imgType, modelScores]) => {
         html += '<tr><td><strong>' + imgType + '</strong></td>';
-        const values = models.map(m => modelScores[m]);
-        const bestVal = betterHigher ? Math.max(...values.filter(v => v !== undefined)) : Math.min(...values.filter(v => v !== undefined));
+        const values = models.map(m => modelScores[m]).filter(v => v !== undefined);
+        const maxVal = Math.max(...values), minVal = Math.min(...values);
         models.forEach(model => {
             const val = modelScores[model];
-            const isBest = val === bestVal && val !== undefined;
-            const style = isBest ? 'background-color: #198754 !important; color: #fff !important; font-weight: bold;' : '';
-            html += '<td style="' + style + '">' + (val !== undefined ? val.toFixed(4) : 'N/A') + '</td>';
+            if (val === undefined) {
+                html += '<td>N/A</td>';
+            } else {
+                const normalized = maxVal === minVal ? 0.5 : (val - minVal) / (maxVal - minVal);
+                const ratio = betterHigher ? normalized : (1 - normalized);
+                const r = Math.round(255 * (1 - ratio) + 0 * ratio);
+                const g = Math.round(50 * (1 - ratio) + 120 * ratio);
+                const b = Math.round(50 * (1 - ratio) + 255 * ratio);
+                const textColor = '#fff';
+                const fontWeight = ratio > 0.7 ? 'bold' : 'normal';
+                const fontSize = ratio > 0.8 ? '1.1em' : '1em';
+                html += '<td style="background-color: rgb(' + r + ',' + g + ',' + b + ') !important; color: ' + textColor + ' !important; font-weight: ' + fontWeight + '; font-size: ' + fontSize + ';">' + val.toFixed(4) + '</td>';
+            }
         });
         html += '</tr>';
     });
     html += '<tr class="table-warning"><td><strong>Overall Average</strong></td>';
+    const avgValues = models.map(m => modelAverages[m]).filter(v => v !== null);
+    const maxAvg = Math.max(...avgValues), minAvg = Math.min(...avgValues);
     models.forEach(model => {
         const avg = modelAverages[model];
-        const isBest = model === bestOverall;
-        const style = isBest ? 'background-color: #198754 !important; color: #fff !important; font-weight: bold;' : '';
-        html += '<td style="' + style + '">' + (avg !== null ? avg.toFixed(4) : 'N/A') + '</td>';
+        if (avg === null) {
+            html += '<td>N/A</td>';
+        } else {
+            const normalized = maxAvg === minAvg ? 0.5 : (avg - minAvg) / (maxAvg - minAvg);
+            const ratio = betterHigher ? normalized : (1 - normalized);
+            const r = Math.round(255 * (1 - ratio) + 0 * ratio);
+            const g = Math.round(50 * (1 - ratio) + 120 * ratio);
+            const b = Math.round(50 * (1 - ratio) + 255 * ratio);
+            const textColor = '#fff';
+            const fontWeight = ratio > 0.7 ? 'bold' : 'normal';
+            const fontSize = ratio > 0.8 ? '1.1em' : '1em';
+            html += '<td style="background-color: rgb(' + r + ',' + g + ',' + b + ') !important; color: ' + textColor + ' !important; font-weight: ' + fontWeight + '; font-size: ' + fontSize + ';">' + avg.toFixed(4) + '</td>';
+        }
     });
     html += '</tr></tbody>';
     DOM.metaAnalysisTable.innerHTML = html;

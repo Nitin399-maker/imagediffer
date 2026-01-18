@@ -497,7 +497,7 @@
   "images": {
     "original": {
       "path": "images/original_1768639055722.webp",
-      "name": "OET.jpg"
+      "name": "Human.jpg"
     },
     "generated": {
       "google/gemini-3-pro-image-preview": {
@@ -982,7 +982,7 @@
   "images": {
     "original": {
       "path": "images/original_1768640132738.webp",
-      "name": "Gemini_Generated_Image_buvyv5buvyv5buvy.png"
+      "name": "Landscape.png"
     },
     "generated": {
       "google/gemini-3-pro-image-preview": {
@@ -1467,7 +1467,7 @@
   "images": {
     "original": {
       "path": "images/original_1768641234959.webp",
-      "name": "Gemini_Generated_Image_dhzu8cdhzu8cdhzu (1).png"
+      "name": "Cartoon.png"
     },
     "generated": {
       "google/gemini-3-pro-image-preview": {
@@ -1952,7 +1952,7 @@
   "images": {
     "original": {
       "path": "images/original_1768641755027.webp",
-      "name": "Gemini_Generated_Image_6u0gc66u0gc66u0g (1).png"
+      "name": "Diagram.png"
     },
     "generated": {
       "google/gemini-3-pro-image-preview": {
@@ -2437,7 +2437,7 @@
   "images": {
     "original": {
       "path": "images/original_1768642252997.webp",
-      "name": "Gemini_Generated_Image_6djfwv6djfwv6djf (1).png"
+      "name": "Scatterplot.png"
     },
     "generated": {
       "google/gemini-3-pro-image-preview": {
