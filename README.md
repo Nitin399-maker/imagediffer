@@ -1,5 +1,7 @@
 # 🖼️ ImageDiff — Multi-Model AI Image Reproduction Evaluation
 
+> **This is a demo. It contains no confidential data/IP.**
+
 A **powerful single-page web application** for evaluating how well different AI models reproduce images using advanced perceptual quality metrics. Compare Gemini 2.5 Flash, GPT Image models, and more with state-of-the-art image similarity algorithms.
 
 ---
